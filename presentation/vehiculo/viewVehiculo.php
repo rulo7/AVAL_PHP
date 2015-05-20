@@ -1,6 +1,8 @@
 <?php
 
 require_once dirname(dirname(__DIR__)) . '/model/enums/Operations.php';
+require_once dirname(dirname(__DIR__)) . '/model/enums/Entities.php';
+require_once dirname(dirname(__DIR__)) . '/model/controller/FrontController.php';
 
 $operation = $_REQUEST['operation'];
 switch ($operation) {
@@ -26,13 +28,15 @@ switch ($operation) {
 
     case Operations::READ:
 
-        $id = $_REQUEST["id"];
-        $tipo = $_REQUEST["tipo"];
-        $nombre = $_REQUEST["nombre"];
-        $puertas = $_REQUEST["puertas"];
-        $plazas = $_REQUEST["plazas"];
-        $musica = ($_REQUEST["musica"]) ? "si" : "no";
-        $motor = $_REQUEST["motor"];
+        $vehiculo = FrontController::getInstance()->execute(Entities::VEHICULO, Operations::READ, $_REQUEST["id"]);
+
+        $id = $vehiculo->getId();
+        $tipo = $vehiculo->getTipo();
+        $nombre = $vehiculo->getNombre();
+        $puertas = $vehiculo->getPuertas();
+        $plazas = $vehiculo->getPlazas();
+        $musica = ($vehiculo->getMusica()) ? "si" : "no";
+        $motor = $vehiculo->getMotor();
 
         echo "<p>ID: <input readonly type='text'  name='id' id='id_id' value='$id'></p>";
         echo "<p>Tipo: <input readonly type='text' name='tipo' id='id_tipo' value='$tipo'></p>";
@@ -47,12 +51,15 @@ switch ($operation) {
 
     case Operations::UPDATE:
 
-        $id = $_REQUEST["id"];
-        $tipo = $_REQUEST["tipo"];
-        $nombre = $_REQUEST["nombre"];
-        $puertas = $_REQUEST["puertas"];
-        $plazas = $_REQUEST["plazas"];
-        $motor = $_REQUEST["motor"];
+        $vehiculo = FrontController::getInstance()->execute(Entities::VEHICULO, Operations::READ, $_REQUEST["id"]);
+
+        $id = $vehiculo->getId();
+        $tipo = $vehiculo->getTipo();
+        $nombre = $vehiculo->getNombre();
+        $puertas = $vehiculo->getPuertas();
+        $plazas = $vehiculo->getPlazas();
+        $musica = ($vehiculo->getMusica()) ? "si" : "no";
+        $motor = $vehiculo->getMotor();
 
         echo "<form method='post' action='vehiculoExecutor.php?operation=$operation'>";
         echo "<p>ID: <input redaonly type='text'  name='id' id='id_id' required value='$id'></p>";
@@ -61,7 +68,7 @@ switch ($operation) {
         echo "<p>Puertas: <input type='number'  name='puertas' id='id_puertas' required value='$puertas'></p>";
         echo "<p>Plazas: <input type='number'  name='plazas' id='id_plazas' required value='$plazas'></p>";
 
-        if ($_REQUEST["musica"]) {
+        if ($musica) {
             echo "<p>Musica: <input type='checkbox'  name='musica' id='id_musica'></p>";
         } else {
             echo "<p>Musica: <input type='checkbox'  name='musica' id='id_musica' checked></p>";
@@ -70,15 +77,15 @@ switch ($operation) {
 
         echo "<p>Motor: ";
         echo "<select name='motor' id='id_motor'  required>";
-        if ($_REQUEST["motor"] == "diesel") {
+        if ($motor == "diesel") {
             echo "<option value='diesel'>Diesel</option>";
             echo "<option value='gasolina'>Gasolina</option>";
             echo "<option value='hibrido'>Hibrido</option>";
-        } else if ($_REQUEST["motor"] == "gasolina") {
+        } else if ($motor == "gasolina") {
             echo "<option value='gasolina'>Gasolina</option>";
             echo "<option value='hibrido'>Hibrido</option>";
             echo "<option value='diesel'>Diesel</option>";
-        } else if ($_REQUEST["motor"] == "hibrido") {
+        } else if ($motor == "hibrido") {
             echo "<option value='hibrido'>Hibrido</option>";
             echo "<option value='diesel'>Diesel</option>";
             echo "<option value='gasolina'>Gasolina</option>";
@@ -92,11 +99,11 @@ switch ($operation) {
         break;
 
     case Operations::DELETE:
-        
+
         $id = $_REQUEST["id"];
         echo "<p>Seguro de que deseas eliminar?</p>";
         echo "<p><a href='vehiculoExecutor.php?operation=$operation&id=$id' target='_blank'><button type='button' >SI</button></a>";
         echo "<a href='volver' target='_blank'><button type='button' >NO</button></a></p>";
-        
+
         break;
 }

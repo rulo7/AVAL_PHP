@@ -40,5 +40,12 @@ class SAVehiculo {
     public function delete($id) {
         FactoryDAO::getInstance()->getDAOVehiculo()->delete($id);
     }
-
+    
+    /**
+     * Devuelve una lista de ids de vehiculos registrados
+     * @return int[]
+     */
+    public function toList() {
+        return FactoryDAO::getInstance()->getDAOVehiculo()->toList();
+    }
 }

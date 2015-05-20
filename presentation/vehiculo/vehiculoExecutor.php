@@ -25,6 +25,7 @@ switch ($operation) {
 
         break;
     case Operations::READ:
+        // no hace nada, en un futuro informa que alguien ha leido algo ...
         break;
     case Operations::UPDATE:
         

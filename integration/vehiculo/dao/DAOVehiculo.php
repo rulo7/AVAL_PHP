@@ -101,5 +101,28 @@ class DAOVehiculo {
             echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
         }
     }
+    
+    /**
+     * Devuelve una lista de ids de vehiculos registrados
+     * @return int[]
+     */
+    public function toList() {
+        $query = "SELECT * FROM `flota`";
+        try {
+            $datos = $this->connection->read($query);
+            if (!$datos) {
+                throw new Exception("no se han encontrado resultados");
+            } else {
+
+                for ($i = 0; $i < count($datos); $i++){
+                    $ids[$i] = $datos[$i]["ID"];
+                }
+
+                return $ids;
+            }
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
 
 }
