@@ -17,40 +17,20 @@ class DAOOficina {
      */
     public function create($transferOficina) {
 
-        $id = $transferOficina->getId();
         $localidad = $transferOficina->getLocalidad();
+        $direccion_recogida = $transferOficina->getDireccion_recogida();
+        $devolucion_distinta_recogida = $transferOficina->getDevolucion_distinta_recogida();
         $telefono = $transferOficina->getTelefono();
-        $direccion = $transferOficina->getDireccion();
         $hora_apertura = $transferOficina->getHora_apertura();
-        $hora_fin = $transferOficina->getHora_fin();
+        $hora_cierre = $transferOficina->getHora_cierre();
+        $operador = $transferOficina->getOperador();
+
+        $query = "INSERT INTO `oficinas`"
+                . "(`localidad`,`direccion_recogida`,`devolucion_distinta_recogida`, `telefono`, `hora_apertura`, `hora_cierre`,`operador`) "
+                . "VALUES ('$localidad','$direccion_recogida','$devolucion_distinta_recogida','$telefono',$hora_apertura','$hora_cierre','$operador')";
 
         try {
-            $query = "INSERT INTO `oficinas_entrega_vehiculo`"
-                    . "(`localidad`, `telefono`, `direccion`, `hora_apertura`, `hora_fin`) "
-                    . "VALUES ('$localidad',$telefono,'$direccion','$hora_apertura','$hora_fin')";
-
             $this->connection->write($query);
-
-            if (!is_null($transferOficina->getOficinas_recogida())) {
-
-                $id_oficina_entrega_vehiculo = $this->connection->read("SELECT `ID` FROM `oficinas_entrega_vehiculo` ORDER BY ID DESC LIMIT 1")[0]["ID"];
-
-                foreach ($transferOficina->getOficinas_recogida() as $oficina) {
-
-                    $id = $oficina->getId();
-                    $localidad = $oficina->getLocalidad();
-                    $telefono = $oficina->getTelefono();
-                    $direccion = $oficina->getDireccion();
-                    $hora_apertura = $oficina->getHora_apertura();
-                    $hora_fin = $oficina->getHora_fin();
-
-
-                    $query = "INSERT INTO `oficinas_recogida_vehiculo`"
-                            . "(`id_oficina_entrega_vehiculo`, `localidad`, `telefono`, `direccion`, `hora_apertura`, `hora_fin`) "
-                            . "VALUES ($id_oficina_entrega_vehiculo,'$localidad',$telefono,'$direccion','$hora_apertura','$hora_fin')";
-                    $this->connection->write($query);
-                }
-            }
         } catch (Exception $exception) {
             echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
             echo $query;
@@ -64,7 +44,7 @@ class DAOOficina {
      * @throws Exception
      */
     public function read($id) {
-        $query = "SELECT * FROM `oficinas_entrega_vehiculo` WHERE ID=$id";
+        $query = "SELECT * FROM `oficinas` WHERE ID=$id";
         try {
             $datos = $this->connection->read($query);
             if (!$datos) {
@@ -73,33 +53,15 @@ class DAOOficina {
 
                 $id = $datos[0]["ID"];
                 $localidad = $datos[0]["localidad"];
+                $direccion_recogida = $datos[0]["direccion_recogida"];
+                $devolucion_distinta_recogida = $datos[0]["devolucion_distinta_recogida"];
                 $telefono = $datos[0]["telefono"];
-                $direccion = $datos[0]["direccion"];
                 $hora_apertura = $datos[0]["hora_apertura"];
-                $hora_fin = $datos[0]["hora_fin"];
+                $hora_cierre = $datos[0]["hora_cierre"];
+                $operador = $datos[0]["operador"];
 
-                // comprobamos si posee oficinas de recogida;
-                $datos = $this->connection->read("SELECT * FROM `oficinas_recogida_vehiculo` WHERE `id_oficina_entrega_vehiculo`=$id");
 
-                if (!$datos) {
-                    $oficinas_recogida = NULL;
-                } else {
-                    $i = 0;
-                    while ($i < sizeof($datos)) {
-
-                        $id2 = $datos[$i]["ID"];
-                        $localidad2 = $datos[$i]["localidad"];
-                        $telefono2 = $datos[$i]["telefono"];
-                        $direccion2 = $datos[$i]["direccion"];
-                        $hora_apertura2 = $datos[$i]["hora_apertura"];
-                        $hora_fin2 = $datos[$i]["hora_fin"];
-
-                        $oficinas_recogida[$i] = new TransferOficina($id2, $localidad2, $telefono2, $direccion2, $hora_apertura2, $hora_fin2, NULL);
-                        $i++;
-                    }
-                }
-
-                return new TransferOficina($id, $localidad, $telefono, $direccion, $hora_apertura, $hora_fin, $oficinas_recogida);
+                return new TransferOficina($id, $localidad, $direccion_recogida, $devolucion_distinta_recogida, $telefono, $hora_apertura, $hora_cierre, $operador);
             }
         } catch (Exception $exception) {
             throw $exception;
@@ -114,53 +76,19 @@ class DAOOficina {
 
         $id = $transferOficina->getId();
         $localidad = $transferOficina->getLocalidad();
+        $direccion_recogida = $transferOficina->getDireccion_recogida();
+        $devolucion_distinta_recogida = $transferOficina->getDevolucion_distinta_recogida();
         $telefono = $transferOficina->getTelefono();
-        $direccion = $transferOficina->getDireccion();
         $hora_apertura = $transferOficina->getHora_apertura();
-        $hora_fin = $transferOficina->getHora_fin();
+        $hora_cierre = $transferOficina->getHora_cierre();
+        $operador = $transferOficina->getOperador();
 
+        $query = "UPDATE `oficinas` SET "
+                . "`ID`=$id,`localidad`='$localidad',`direccion_recogida` = $direccion_recogida, `devolucion_distinta_recogida` = $devolucion_distinta_recogida,"
+                . "`telefono`=$telefono,`hora_apertura`='$hora_apertura',`hora_cierre`='$hora_cierre',`operador` = $operador "
+                . "WHERE `ID`=$id";
         try {
-
-            if (is_null($transferOficina->getOficinas_recogida())) {
-                $query = "UPDATE `oficinas_entrega_vehiculo` SET "
-                        . "`localidad`='$localidad',`telefono`=$telefono,`direccion`='$direccion',`hora_apertura`='$hora_apertura',`hora_fin`='$hora_fin' "
-                        . "WHERE `ID`=$id";
-                $this->connection->write($query);
-
-                $query = "DELETE FROM `oficinas_recogida_vehiculo` WHERE `id_oficina_entrega_vehiculo`=$id";
-                $this->connection->write($query);
-            } else {
-
-                $query = "UPDATE `oficinas_entrega_vehiculo` SET "
-                        . "`localidad`='$localidad',`telefono`=$telefono,`direccion`='$direccion',`hora_apertura`='$hora_apertura',`hora_fin`='$hora_fin' "
-                        . "WHERE `ID`=$id";
-                $this->connection->write($query);
-
-                $id_oficina_entrega_vehiculo2 = $id;
-
-                foreach ($transferOficina->getOficinas_recogida() as $oficina) {
-
-                    $id2 = $oficina->getId();
-                    $localidad2 = $oficina->getLocalidad();
-                    $telefono2 = $oficina->getTelefono();
-                    $direccion2 = $oficina->getDireccion();
-                    $hora_apertura2 = $oficina->getHora_apertura();
-                    $hora_fin2 = $oficina->getHora_fin();
-
-
-                    if (!$this->connection->read("SELECT * FROM `oficinas_recogida_vehiculo` WHERE `ID`=$id2")) {
-                        $query = "INSERT INTO `oficinas_recogida_vehiculo`"
-                                . "(`id_oficina_entrega_vehiculo`, `localidad`, `telefono`, `direccion`, `hora_apertura`, `hora_fin`) "
-                                . "VALUES ($id_oficina_entrega_vehiculo2,'$localidad2',$telefono2,'$direccion2','$hora_apertura2','$hora_fin2')";
-                    } else {
-                        $query = "UPDATE `oficinas_recogida_vehiculo` SET "
-                                . "`id_oficina_entrega_vehiculo`=$id_oficina_entrega_vehiculo2,`localidad`='$localidad2',`telefono`=$telefono2,`direccion`='$direccion2',`hora_apertura`='$hora_apertura2',`hora_fin`='$hora_fin2' "
-                                . "WHERE `ID`=$id2";
-                    }
-
-                    $this->connection->write($query);
-                }
-            }
+            $this->connection->write($query);
         } catch (Exception $exception) {
             echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
             echo $query;
@@ -173,15 +101,7 @@ class DAOOficina {
      */
     public function delete($id) {
 
-        $query = "DELETE FROM `oficinas_recogida_vehiculo` WHERE `id_oficina_entrega_vehiculo`=$id";
-
-        try {
-            $this->connection->write($query);
-        } catch (Exception $exception) {
-            echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
-        }
-
-        $query = "DELETE FROM `oficinas_entrega_vehiculo` WHERE `ID`=$id";
+        $query = "DELETE FROM `oficinas` WHERE `ID`=$id";
 
         try {
             $this->connection->write($query);
@@ -189,14 +109,14 @@ class DAOOficina {
             echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
         }
     }
-    
+
     /**
      * Devuelve una lista de todos los IDs de los behiculos de la flota
      * @return ArrayObject
      */
     public function readAll() {
         try {
-            $datos = $this->connection->read("SELECT ID FROM `oficinas_entrega_vehiculo`");
+            $datos = $this->connection->read("SELECT ID FROM `oficinas`");
 
             $i = 0;
             foreach ($datos as $oficina) {

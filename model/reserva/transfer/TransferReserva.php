@@ -3,163 +3,192 @@
 class TransferReserva {
 
     private $id;
-    private $referencia;
-    private $tipo;
-    private $fecha_alta;
-    private $nombre_cliente;
-    private $email;
-    private $telefono;
     /*     * @var TransferTarifa */
     private $tarifa;
-    /*     * @var TransferOficina */
-    private $oficina_entrega;
-    /*     * @var TransferOficina */
-    private $oficina_recogida;
-    private $fecha_inicio_alquiler;
-    private $fecha_fin_alquiler;
-    private $precio_total;
-    //boolean
-    private $gps;
+    private $momento_recogida;
+    private $momento_devolucion;
+    private $cargado_cuenta;
+    private $estado;
+    private $nombre;
+    private $apellidos;
+    private $email;
+    private $telefono1;
+    private $telefono2;
+    private $nacionalidad;
+    private $fecha_nacimiento;
+    private $extra_gps;
+    private $extra_silla_niño;
+    private $extra_silla_elevador;
+    private $extra_portaesquis;
+    private $extra_cadenas;
 
-    public function __construct($id, $referencia, $tipo, $fecha_alta, $nombre_cliente, $email, $telefono, $tarifa, $oficina_entrega, $oficina_recogida, $fecha_inicio_alquiler, $fecha_fin_alquiler, $precio_total, $gps) {
+    function __construct($id, $tarifa, $momento_recogida, $momento_devolucion, $cargado_cuenta, $estado, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_niño, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas) {
         $this->id = $id;
-        $this->referencia = $referencia;
-        $this->tipo = $tipo;
-        $this->fecha_alta = $fecha_alta;
-        $this->nombre_cliente = $nombre_cliente;
-        $this->email = $email;
-        $this->telefono = $telefono;
         $this->tarifa = $tarifa;
-        $this->oficina_entrega = $oficina_entrega;
-        $this->oficina_recogida = $oficina_recogida;
-        $this->fecha_inicio_alquiler = $fecha_inicio_alquiler;
-        $this->fecha_fin_alquiler = $fecha_fin_alquiler;
-        $this->precio_total = $precio_total;
-        $this->gps = $gps;
+        $this->momento_recogida = $momento_recogida;
+        $this->momento_devolucion = $momento_devolucion;
+        $this->cargado_cuenta = $cargado_cuenta;
+        $this->estado = $estado;
+        $this->nombre = $nombre;
+        $this->apellidos = $apellidos;
+        $this->email = $email;
+        $this->telefono1 = $telefono1;
+        $this->telefono2 = $telefono2;
+        $this->nacionalidad = $nacionalidad;
+        $this->fecha_nacimiento = $fecha_nacimiento;
+        $this->extra_gps = $extra_gps;
+        $this->extra_silla_niño = $extra_silla_niño;
+        $this->extra_silla_elevador = $extra_silla_elevador;
+        $this->extra_portaesquis = $extra_portaesquis;
+        $this->extra_cadenas = $extra_cadenas;
     }
 
-    public function getId() {
+    function getId() {
         return $this->id;
     }
 
-    public function getReferencia() {
-        return $this->referencia;
-    }
-
-    public function getTipo() {
-        return $this->tipo;
-    }
-
-    public function getFecha_alta() {
-        return $this->fecha_alta;
-    }
-
-    public function getNombre_cliente() {
-        return $this->nombre_cliente;
-    }
-
-    public function getEmail() {
+    function getEmail() {
         return $this->email;
     }
 
-    public function getTelefono() {
-        return $this->telefono;
+    function setEmail($email) {
+        $this->email = $email;
     }
 
     /**
      * 
      * @return TransferTarifa
      */
-    public function getTarifa() {
+    function getTarifa() {
         return $this->tarifa;
     }
 
-    /**
-     * 
-     * @return TransferOficina
-     */
-    public function getOficina_entrega() {
-        return $this->oficina_entrega;
+    function getMomento_recogida() {
+        return $this->momento_recogida;
     }
 
-    /**
-     * 
-     * @return TransferOficina
-     */
-    public function getOficina_recogida() {
-        return $this->oficina_recogida;
+    function getMomento_devolucion() {
+        return $this->momento_devolucion;
     }
 
-    public function getFecha_inicio_alquiler() {
-        return $this->fecha_inicio_alquiler;
+    function getCargado_cuenta() {
+        return $this->cargado_cuenta;
     }
 
-    public function getFecha_fin_alquiler() {
-        return $this->fecha_fin_alquiler;
+    function getEstado() {
+        return $this->estado;
     }
 
-    public function getGps() {
-        return $this->gps;
+    function getNombre() {
+        return $this->nombre;
     }
 
-    public function getPrecio_total() {
-        return $this->precio_total;
+    function getApellidos() {
+        return $this->apellidos;
     }
 
-    public function setId($id) {
+    function getTelefono1() {
+        return $this->telefono1;
+    }
+
+    function getTelefono2() {
+        return $this->telefono2;
+    }
+
+    function getNacionalidad() {
+        return $this->nacionalidad;
+    }
+
+    function getFecha_nacimiento() {
+        return $this->fecha_nacimiento;
+    }
+
+    function getExtra_gps() {
+        return $this->extra_gps;
+    }
+
+    function getExtra_silla_niño() {
+        return $this->extra_silla_niño;
+    }
+
+    function getExtra_silla_elevador() {
+        return $this->extra_silla_elevador;
+    }
+
+    function getExtra_portaesquis() {
+        return $this->extra_portaesquis;
+    }
+
+    function getExtra_cadenas() {
+        return $this->extra_cadenas;
+    }
+
+    function setId($id) {
         $this->id = $id;
     }
 
-    public function setReferencia($referencia) {
-        $this->referencia = $referencia;
-    }
-
-    public function setTipo($tipo) {
-        $this->tipo = $tipo;
-    }
-
-    public function setFecha_alta($fecha_alta) {
-        $this->fecha_alta = $fecha_alta;
-    }
-
-    public function setNombre_cliente($nombre_cliente) {
-        $this->nombre_cliente = $nombre_cliente;
-    }
-
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-
-    public function setTelefono($telefono) {
-        $this->telefono = $telefono;
-    }
-
-    public function setTarifa(TransferTarifa $tarifa) {
+    function setTarifa($tarifa) {
         $this->tarifa = $tarifa;
     }
 
-    public function setOficina_entrega(TransferOficina $oficina_entrega) {
-        $this->oficina_entrega = $oficina_entrega;
+    function setMomento_recogida($momento_recogida) {
+        $this->momento_recogida = $momento_recogida;
     }
 
-    public function setOficina_recogida(TransferOficina $oficina_recogida) {
-        $this->oficina_recogida = $oficina_recogida;
+    function setMomento_devolucion($momento_devolucion) {
+        $this->momento_devolucion = $momento_devolucion;
     }
 
-    public function setFecha_inicio_alquiler($fecha_inicio_alquiler) {
-        $this->fecha_inicio_alquiler = $fecha_inicio_alquiler;
+    function setCargado_cuenta($cargado_cuenta) {
+        $this->cargado_cuenta = $cargado_cuenta;
     }
 
-    public function setFecha_fin_alquiler($fecha_fin_alquiler) {
-        $this->fecha_fin_alquiler = $fecha_fin_alquiler;
+    function setEstado($estado) {
+        $this->estado = $estado;
     }
 
-    public function setPrecio_total($precio_total) {
-        $this->precio_total = $precio_total;
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
     }
 
-    public function setGps($gps) {
-        $this->gps = $gps;
+    function setApellidos($apellidos) {
+        $this->apellidos = $apellidos;
+    }
+
+    function setTelefono1($telefono1) {
+        $this->telefono1 = $telefono1;
+    }
+
+    function setTelefono2($telefono2) {
+        $this->telefono2 = $telefono2;
+    }
+
+    function setNacionalidad($nacionalidad) {
+        $this->nacionalidad = $nacionalidad;
+    }
+
+    function setFecha_nacimiento($fecha_nacimiento) {
+        $this->fecha_nacimiento = $fecha_nacimiento;
+    }
+
+    function setExtra_gps($extra_gps) {
+        $this->extra_gps = $extra_gps;
+    }
+
+    function setExtra_silla_niño($extra_silla_niño) {
+        $this->extra_silla_niño = $extra_silla_niño;
+    }
+
+    function setExtra_silla_elevador($extra_silla_elevador) {
+        $this->extra_silla_elevador = $extra_silla_elevador;
+    }
+
+    function setExtra_portaesquis($extra_portaesquis) {
+        $this->extra_portaesquis = $extra_portaesquis;
+    }
+
+    function setExtra_cadenas($extra_cadenas) {
+        $this->extra_cadenas = $extra_cadenas;
     }
 
     /**
@@ -169,23 +198,22 @@ class TransferReserva {
 
         $string = '';
         $string .= $this->id . "<br>";
-        if(is_null($this->referencia)){
-            $string .= "NULL <br>";
-        }else{
-            $string .= $this->referencia . "<br>";
-        }
-        $string .= $this->tipo . "<br>";
-        $string .= $this->fecha_alta . "<br>";
-        $string .= $this->nombre_cliente . "<br>";
-        $string .= $this->email . "<br>";
-        $string .= $this->telefono . "<br>";
-        $string .= $this->tarifa->__toString() . "<br>";
-        $string .= $this->oficina_entrega->__toString() . "<br>";
-        $string .= $this->oficina_recogida->__toString() . "<br>";
-        $string .= $this->fecha_inicio_alquiler . "<br>";
-        $string .= $this->fecha_fin_alquiler . "<br>";
-        $string .= $this->precio_total . "<br>";
-        $string .= $this->gps . "<br>";
+        $string .= $this->tarifa->_toString() . "<br>";
+        $string .= $this->momento_recogida . "<br>";
+        $string .= $this->momento_devolucion . "<br>";
+        $string .= $this->cargado_cuenta . "<br>";
+        $string .= $this->estado . "<br>";
+        $string .= $this->nombre . "<br>";
+        $string .= $this->apellidos . "<br>";
+        $string .= $this->telefono1 . "<br>";
+        $string .= $this->telefono2 . "<br>";
+        $string .= $this->nacionalidad . "<br>";
+        $string .= $this->fecha_nacimiento . "<br>";
+        $string .= $this->extra_gps . "<br>";
+        $string .= $this->extra_silla_niño . "<br>";
+        $string .= $this->extra_silla_elevador . "<br>";
+        $string .= $this->extra_portaesquis . "<br>";
+        $string .= $this->extra_cadenas . "<br>";
 
 
         return $string;

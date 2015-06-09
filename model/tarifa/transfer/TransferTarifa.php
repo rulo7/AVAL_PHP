@@ -3,80 +3,96 @@
 class TransferTarifa {
 
     private $id;
-    /** @var TransferVehiculo */
-    private $vehiculo;
-    private $precio_3_dias;
-    private $precio_4_7_dias;
-    private $precio_7_15_dias;
-    private $precio_mas_15;
+    private $grupo;
+    private $modulo_tramos;
+    private $precio_tramo1;
+    private $precio_tramo2;
+    private $precio_tramo3;
+    private $precio_tramo4;
+    private $km_max_diarios;
     private $precio_km_extra;
 
-    public function __construct($id, $vehiculo, $precio_3_dias, $precio_4_7_dias, $precio_7_15_dias, $precio_mas_15, $precio_km_extra) {
-        $this->id = $id;
-        $this->vehiculo = $vehiculo;
-        $this->precio_3_dias = $precio_3_dias;
-        $this->precio_4_7_dias = $precio_4_7_dias;
-        $this->precio_7_15_dias = $precio_7_15_dias;
-        $this->precio_mas_15 = $precio_mas_15;
-        $this->precio_km_extra = $precio_km_extra;
-    }
-
-    public function getId() {
+    function getId() {
         return $this->id;
     }
 
-    /**
-     * @return TransferVehiculo
-     */
-    public function getVehiculo() {
-        return $this->vehiculo;
+    function __construct($id, $grupo, $modulo_tramos, $precio_tramo1, $precio_tramo2, $precio_tramo3, $precio_tramo4, $km_max_diarios, $precio_km_extra) {
+        $this->id = $id;
+        $this->grupo = $grupo;
+        $this->modulo_tramos = $modulo_tramos;
+        $this->precio_tramo1 = $precio_tramo1;
+        $this->precio_tramo2 = $precio_tramo2;
+        $this->precio_tramo3 = $precio_tramo3;
+        $this->precio_tramo4 = $precio_tramo4;
+        $this->km_max_diarios = $km_max_diarios;
+        $this->precio_km_extra = $precio_km_extra;
     }
 
-    public function getPrecio_3_dias() {
-        return $this->precio_3_dias;
+    function getGrupo() {
+        return $this->grupo;
     }
 
-    public function getPrecio_4_7_dias() {
-        return $this->precio_4_7_dias;
+    function getModulo_tramos() {
+        return $this->modulo_tramos;
     }
 
-    public function getPrecio_7_15_dias() {
-        return $this->precio_7_15_dias;
+    function getPrecio_tramo1() {
+        return $this->precio_tramo1;
     }
 
-    public function getPrecio_mas_15() {
-        return $this->precio_mas_15;
+    function getPrecio_tramo2() {
+        return $this->precio_tramo2;
     }
 
-    public function getPrecio_km_extra() {
+    function getPrecio_tramo3() {
+        return $this->precio_tramo3;
+    }
+
+    function getPrecio_tramo4() {
+        return $this->precio_tramo4;
+    }
+
+    function getKm_max_diarios() {
+        return $this->km_max_diarios;
+    }
+
+    function getPrecio_km_extra() {
         return $this->precio_km_extra;
     }
 
-    public function setId($id) {
+    function setId($id) {
         $this->id = $id;
     }
 
-    public function setVehiculo($vehiculo) {
-        $this->vehiculo = $vehiculo;
+    function setGrupo(TransferVehiculo $grupo) {
+        $this->grupo = $grupo;
     }
 
-    public function setPrecio_3_dias($precio_3_dias) {
-        $this->precio_3_dias = $precio_3_dias;
+    function setModulo_tramos($modulo_tramos) {
+        $this->modulo_tramos = $modulo_tramos;
     }
 
-    public function setPrecio_4_7_dias($precio_4_7_dias) {
-        $this->precio_4_7_dias = $precio_4_7_dias;
+    function setPrecio_tramo1($precio_tramo1) {
+        $this->precio_tramo1 = $precio_tramo1;
     }
 
-    public function setPrecio_7_15_dias($precio_7_15_dias) {
-        $this->precio_7_15_dias = $precio_7_15_dias;
+    function setPrecio_tramo2($precio_tramo2) {
+        $this->precio_tramo2 = $precio_tramo2;
     }
 
-    public function setPrecio_mas_15($precio_mas_15) {
-        $this->precio_mas_15 = $precio_mas_15;
+    function setPrecio_tramo3($precio_tramo3) {
+        $this->precio_tramo3 = $precio_tramo3;
     }
 
-    public function setPrecio_km_extra($precio_km_extra) {
+    function setPrecio_tramo4($precio_tramo4) {
+        $this->precio_tramo4 = $precio_tramo4;
+    }
+
+    function setKm_max_diarios($km_max_diarios) {
+        $this->km_max_diarios = $km_max_diarios;
+    }
+
+    function setPrecio_km_extra($precio_km_extra) {
         $this->precio_km_extra = $precio_km_extra;
     }
 
@@ -87,13 +103,16 @@ class TransferTarifa {
 
         $string = '';
         $string .= $this->id . "<br>";
-        $string .= $this->precio_3_dias . "<br>";
-        $string .= $this->precio_4_7_dias . "<br>";
-        $string .= $this->precio_7_15_dias . "<br>";
+        $string .= $this->grupo . "<br>";
+        $string .= $this->modulo_tramos . "<br>";
+        $string .= $this->precio_tramo1 . "<br>";
+        $string .= $this->precio_tramo2 . "<br>";
+        $string .= $this->precio_tramo3 . "<br>";
+        $string .= $this->precio_tramo4 . "<br>";
+        $string .= $this->km_max_diarios . "<br>";
         $string .= $this->precio_km_extra . "<br>";
-        $string .= $this->precio_mas_15 . "<br>";
-        $string .= $this->vehiculo->getNombre();
-        
+
+
         return $string;
     }
 

@@ -18,16 +18,20 @@ class DAOVehiculo {
      */
     public function create($transferVehiculo) {
 
-        $id = $transferVehiculo->getId();
         $tipo = $transferVehiculo->getTipo();
-        $nombre = $transferVehiculo->getNombre();
+        $grupo = $transferVehiculo->getGrupo();
+        $modelo = $transferVehiculo->getModelo();
         $puertas = $transferVehiculo->getPuertas();
         $plazas = $transferVehiculo->getPlazas();
-        $musica = $transferVehiculo->getMusica();
-        $motor = $transferVehiculo->getMotor();
+        $radio =$transferVehiculo->getRadio();
+        $aire = $transferVehiculo->getAire();
+        $metros_cubicos=$transferVehiculo->getMetros_cubicos;
+        $alto=$transferVehiculo->getAlto();
+        $ancho=$transferVehiculo->getAncho();
+        $largo=$transferVehiculo->getLargo();
 
-        $query = "INSERT INTO `flota`(`tipo`, `nombre`, `puertas`, `plazas`, `musica`, `motor`) "
-                . "VALUES ('$tipo','$nombre',$puertas,$plazas,$musica,'$motor')";
+        $query = "INSERT INTO `vehiculo`(`tipo`, `grupo`, `modelo`, `puertas`, `plazas`, `radio`, `aire`,`metros_cubicos`,`alto`,`ancho`,`largo`) "
+                . "VALUES ('$tipo', '$grupo', '$modelo', '$puertas', '$plazas', '$radio', '$aire','$metros_cubicos','$alto','$ancho','$largo')";
         try {
             $this->connection->write($query);
         } catch (Exception $exception) {
@@ -43,7 +47,7 @@ class DAOVehiculo {
      * @throws Exception
      */
     public function read($id) {
-        $query = "SELECT * FROM `flota` WHERE ID=$id";
+        $query = "SELECT * FROM `vehiculo` WHERE ID=$id";
         try {
             $datos = $this->connection->read($query);
             if (!$datos) {
@@ -52,13 +56,18 @@ class DAOVehiculo {
 
                 $id = $datos[0]["ID"];
                 $tipo = $datos[0]["tipo"];
-                $nombre = $datos[0]["nombre"];
+                $grupo = $datos[0]["grupo"];
+                $modelo = $datos[0]["modelo"];
                 $puertas = $datos[0]["puertas"];
                 $plazas = $datos[0]["plazas"];
-                $musica = $datos[0]["musica"];
-                $motor = $datos[0]["motor"];
+                $radio = $datos[0]["radio"];
+                $aire = $datos[0]["aire"];
+                $metros_cubicos = $datos[0]["metros_cubicos"];
+                $alto = $datos[0]["alto"];
+                $ancho = $datos[0]["ancho"];
+                $largo = $datos[0]["largo"];
 
-                return new TransferVehiculo($id, $tipo, $nombre, $puertas, $plazas, $musica, $motor);
+                return new TransferVehiculo($id, $tipo, $grupo, $modelo, $puertas, $plazas, $radio, $aire, $metros_cubicos, $alto, $ancho, $largo);
             }
         } catch (Exception $exception) {
             throw $exception;
@@ -73,14 +82,19 @@ class DAOVehiculo {
 
         $id = $transferVehiculo->getId();
         $tipo = $transferVehiculo->getTipo();
-        $nombre = $transferVehiculo->getNombre();
+        $grupo = $transferVehiculo->getGrupo();
+        $modelo = $transferVehiculo->getModelo();
         $puertas = $transferVehiculo->getPuertas();
         $plazas = $transferVehiculo->getPlazas();
-        $musica = $transferVehiculo->getMusica();
-        $motor = $transferVehiculo->getMotor();
+        $radio =$transferVehiculo->getRadio();
+        $aire = $transferVehiculo->getAire();
+        $metros_cubicos=$transferVehiculo->getMetros_cubicos;
+        $alto=$transferVehiculo->getAlto();
+        $ancho=$transferVehiculo->getAncho();
+        $largo=$transferVehiculo->getLargo();
 
-        $query = "UPDATE `flota` "
-                . "SET `tipo`='$tipo',`nombre`='$nombre',`puertas`=$puertas,`plazas`=$plazas,`musica`=$musica,`motor`='$motor'"
+        $query = "UPDATE `vehiculo` "
+                . "SET `tipo`='$tipo',`grupo`='$grupo',`modelo`='$modelo',`puertas`=$puertas,`plazas`=$plazas,`radio`=$radio,`aire`='$aire',`metros_cubicos`='$metros_cubicos',`alto`='$alto',`ancho`='$ancho',`largo`='$largo'"
                 . "WHERE ID=$id";
         try {
             $this->connection->write($query);
@@ -94,7 +108,7 @@ class DAOVehiculo {
      * @param int $id
      */
     public function delete($id) {
-        $query = "DELETE FROM `flota` WHERE ID=$id";
+        $query = "DELETE FROM `vehiculo` WHERE ID=$id";
         try {
             $this->connection->write($query);
         } catch (Exception $exception) {
@@ -107,7 +121,7 @@ class DAOVehiculo {
      * @return int[]
      */
     public function toList() {
-        $query = "SELECT * FROM `flota`";
+        $query = "SELECT * FROM `vehiculo`";
         try {
             $datos = $this->connection->read($query);
             if (!$datos) {

@@ -18,35 +18,33 @@ class DAOReserva {
     public function create($transferReserva) {
 
         $id = $transferReserva->getId();
-        $referencia = $transferReserva->getReferencia();
-        $tipo = $transferReserva->getTipo();
-        $fecha_alta = $transferReserva->getFecha_alta();
-        $nombre_cliente = $transferReserva->getNombre_cliente();
+        $tarifa = $transferReserva->getTarifa();
+        $momento_recogida = $transferReserva->getMomento_recogida();
+        $momento_devolucion = $transferReserva->getMomento_devolucion();
+        $cargado_cuenta = $transferReserva->getCargado_cuenta();
         $email = $transferReserva->getEmail();
-        $telefono = $transferReserva->getTelefono();
-        $id_tarifa = $transferReserva->getTarifa()->getId();
-        $id_oficina_entrega = $transferReserva->getOficina_entrega()->getId();
-        $id_oficina_recogida = $transferReserva->getOficina_recogida()->getId();
-        $fecha_inicio_alquiler = $transferReserva->getFecha_inicio_alquiler();
-        $fecha_fin_alquiler = $transferReserva->getFecha_fin_alquiler();
-        $precio_total = $transferReserva->getPrecio_total();
-        $GPS = $transferReserva->getGps();
+        $estado = $transferReserva->getEstado();
+        $nombre = $transferReserva->getNombre();
+        $apellidos = $transferReserva->getApellidos();
+        $telefono1 = $transferReserva->getTelefono1();
+        $telefono2 = $transferReserva->getTelefono2();
+        $nacionalidad = $transferReserva->getNacionalidad();
+        $fecha_nacimiento = $transferReserva->getFecha_nacimiento();
+        $extra_gps = $transferReserva->getExtra_gps();
+        $extra_silla_niño = $transferReserva->getExtra_silla_niño();
+        $extra_silla_elevador = $transferReserva->getExtra_silla_elevador();
+        $extra_portaesquis = $transferReserva->getExtra_portaesquis();
+        $extra_cadenas = $transferReserva->getExtra_cadenas();
+
+        $query = "INSERT INTO `reservas`"
+                . "(`id`, `tarifa`, `momento_recogida`, `momento_devolucion`, `cargado_cuenta`, `estado`, `nombre`,"
+                . " `apellidos`,`email`, `telefono1`, `telefono2`, `nacionalidad`, `fecha_nacimiento`,`extra_gps`,`extra_silla_niño`,`extra_silla_elevador`,"
+                . "`extra_portaesquis`,`extra_cadenas`,``) "
+                . "VALUES ('$id','$tarifa','$momento_recogida','$momento_devolucion','$cargado_cuenta','$estado',"
+                . "'$nombre','$apellidos','$email',$telefono1','$telefono2','$nacionalidad','$fecha_nacimiento','$extra_gps',"
+                . "'$extra_silla_niño','$extra_silla_elevador','$extra_portaesquis','$extra_cadenas')";
 
         try {
-            if (is_null($referencia)) {
-                $query = "INSERT INTO `reservas`"
-                        . "(`tipo`, `fecha_alta`, `nombre`, `email`, `telefono`, `id_tarifa`, `id_oficina_entrega`,"
-                        . " `id_oficina_recogida`, `fecha_inicio_alquiler`, `fecha_fin_alquiler`, `precio_total`, `GPS`) "
-                        . "VALUES ('$tipo','$fecha_alta','$nombre_cliente','$email',$telefono,$id_tarifa,$id_oficina_entrega,"
-                        . "$id_oficina_recogida,'$fecha_inicio_alquiler','$fecha_fin_alquiler',$precio_total,$GPS)";
-            } else {
-                $query = "INSERT INTO `reservas`"
-                        . "(`referencia`, `tipo`, `fecha_alta`, `nombre`, `email`, `telefono`, `id_tarifa`, `id_oficina_entrega`,"
-                        . " `id_oficina_recogida`, `fecha_inicio_alquiler`, `fecha_fin_alquiler`, `precio_total`, `GPS`) "
-                        . "VALUES ('$referencia','$tipo','$fecha_alta','$nombre_cliente','$email',$telefono,$id_tarifa,$id_oficina_entrega,"
-                        . "$id_oficina_recogida,'$fecha_inicio_alquiler','$fecha_fin_alquiler',$precio_total,$GPS)";
-            }
-
             $this->connection->write($query);
         } catch (Exception $exception) {
             echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
@@ -69,25 +67,28 @@ class DAOReserva {
             } else {
 
                 $id = $datos[0]["ID"];
-                $referencia = $datos[0]["referencia"];
-                $tipo = $datos[0]["tipo"];
-                $fecha_alta = $datos[0]["fecha_alta"];
-                $nombre_cliente = $datos[0]["nombre"];
+                $id_tarifa = $datos[0]["tarifa"];
+                $momento_recogida = $datos[0]["momento_recogida"];
+                $momento_devolucion = $datos[0]["momento_devolucion"];
+                $cargado_cuenta = $datos[0]["cargado_cuenta"];
+                $estado = $datos[0]["estado"];
+                $nombre = $datos[0]["nombre"];
+                $apellidos = $datos[0]["apellidos"];
                 $email = $datos[0]["email"];
-                $telefono = $datos[0]["telefono"];
-                $id_tarifa = $datos[0]["id_tarifa"];
-                $id_oficina_entrega = $datos[0]["id_oficina_entrega"];
-                $id_oficina_recogida = $datos[0]["id_oficina_recogida"];
-                $fecha_inicio_alquiler = $datos[0]["fecha_inicio_alquiler"];
-                $fecha_fin_alquiler = $datos[0]["fecha_fin_alquiler"];
-                $precio_total = $datos[0]["precio_total"];
-                $GPS = $datos[0]["GPS"];
-                
+                $telefono1 = $datos[0]["telefono1"];
+                $telefono2 = $datos[0]["telefono2"];
+                $nacionalidad = $datos[0]["nacionalidad"];
+                $fecha_nacimiento = $datos[0]["fecha_nacimiento"];
+                $extra_gps = $datos[0]["extra_gps"];
+                $extra_silla_niño = $datos[0]["extra_silla_niño"];
+                $extra_silla_elevador = $datos[0]["extra_silla_elevador"];
+                $extra_portaesquis = $datos[0]["extra_portaesquis"];
+                $extra_cadenas = $datos[0]["extra_cadenas"];
+
+
                 $tarifa = FactoryDAO::getInstance()->getDAOTarifa()->read($id_tarifa);
-                $oficina_entrega = FactoryDAO::getInstance()->getDAOOficina()->read($id_oficina_entrega);
-                $oficina_recogida = $oficina_entrega->getOficinaRecogida($id_oficina_recogida);
-                
-                return new TransferReserva($id, $referencia, $tipo, $fecha_alta, $nombre_cliente, $email, $telefono, $tarifa, $oficina_entrega, $oficina_recogida, $fecha_inicio_alquiler, $fecha_fin_alquiler, $precio_total, $GPS);
+
+                return new TransferReserva($id, $tarifa, $momento_recogida, $momento_devolucion, $cargado_cuenta, $estado, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_niño, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas);
             }
         } catch (Exception $exception) {
             throw $exception;
@@ -101,37 +102,32 @@ class DAOReserva {
     public function update($transferReserva) {
 
         $id = $transferReserva->getId();
-        $referencia = $transferReserva->getReferencia();
-        $tipo = $transferReserva->getTipo();
-        $fecha_alta = $transferReserva->getFecha_alta();
-        $nombre_cliente = $transferReserva->getNombre_cliente();
+        $tarifa = $transferReserva->getTarifa();
+        $momento_recogida = $transferReserva->getMomento_recogida();
+        $momento_devolucion = $transferReserva->getMomento_devolucion();
+        $cargado_cuenta = $transferReserva->getCargado_cuenta();
         $email = $transferReserva->getEmail();
-        $telefono = $transferReserva->getTelefono();
-        $id_tarifa = $transferReserva->getTarifa()->getId();
-        $id_oficina_entrega = $transferReserva->getOficina_entrega()->getId();
-        $id_oficina_recogida = $transferReserva->getOficina_recogida()->getId();
-        $fecha_inicio_alquiler = $transferReserva->getFecha_inicio_alquiler();
-        $fecha_fin_alquiler = $transferReserva->getFecha_fin_alquiler();
-        $precio_total = $transferReserva->getPrecio_total();
-        $GPS = $transferReserva->getGps();
+        $estado = $transferReserva->getEstado();
+        $nombre = $transferReserva->getNombre();
+        $apellidos = $transferReserva->getApellidos();
+        $telefono1 = $transferReserva->getTelefono1();
+        $telefono2 = $transferReserva->getTelefono2();
+        $nacionalidad = $transferReserva->getNacionalidad();
+        $fecha_nacimiento = $transferReserva->getFecha_nacimiento();
+        $extra_gps = $transferReserva->getExtra_gps();
+        $extra_silla_niño = $transferReserva->getExtra_silla_niño();
+        $extra_silla_elevador = $transferReserva->getExtra_silla_elevador();
+        $extra_portaesquis = $transferReserva->getExtra_portaesquis();
+        $extra_cadenas = $transferReserva->getExtra_cadenas();
 
+        $query = "UPDATE `reservas` SET "
+                . "`tarifa`='$tarifa',`momento_recogida`='$momento_recogida',`momento_devolucion`='$momento_devolucion',"
+                . "`cargado_cuenta` = '$cargado_cuenta', `email`='$email',`estado`= '$estado', `nombre` = '$nombre',"
+                . "`apellidos` = '$apellidos', `telefono1`= '$telefono1', `telefono2`='$telefono2',`nacionalidad`='$nacionalidad',"
+                . "`fecha_nacimiento`='$fecha_nacimiento',`extra_gps`='$extra_gps',`extra_silla_niño`='$extra_silla_niño',`extra_silla_elevador`='$extra_silla_elevador',"
+                . "`extra_portaesquis`='$extra_portaesquis',`extra_cadenas`='$extra_cadenas'"
+                . " WHERE ID=$id";
         try {
-            if (is_null($referencia)) {
-                $query = "UPDATE `reservas` SET "
-                        . "`tipo`='$tipo',`fecha_alta`='$fecha_alta',`nombre`='$nombre_cliente',"
-                        . "`email`='$email',`telefono`=$telefono,`id_tarifa`=$id_tarifa,`id_oficina_entrega`=$id_oficina_entrega,"
-                        . "`id_oficina_recogida`=$id_oficina_recogida,`fecha_inicio_alquiler`='$fecha_inicio_alquiler',"
-                        . "`fecha_fin_alquiler`='$fecha_fin_alquiler',`precio_total`=$precio_total,`GPS`=$GPS"
-                        . " WHERE ID=$id";
-            } else {
-                $query = "UPDATE `reservas` SET "
-                        . "`referencia`='$referencia',`tipo`='$tipo',`fecha_alta`='$fecha_alta',`nombre`='$nombre_cliente',"
-                        . "`email`='$email',`telefono`=$telefono,`id_tarifa`=$id_tarifa,`id_oficina_entrega`=$id_oficina_entrega,"
-                        . "`id_oficina_recogida`=$id_oficina_recogida,`fecha_inicio_alquiler`='$fecha_inicio_alquiler',"
-                        . "`fecha_fin_alquiler`='$fecha_fin_alquiler',`precio_total`=$precio_total,`GPS`=$GPS"
-                        . " WHERE ID=$id";
-            }
-
             $this->connection->write($query);
         } catch (Exception $exception) {
             echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";

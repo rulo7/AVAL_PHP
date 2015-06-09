@@ -4,96 +4,87 @@ class TransferOficina {
 
     private $id;
     private $localidad;
+    private $direccion_recogida;
+    //boolean
+    private $devolucion_distinta_recogida;
     private $telefono;
-    private $direccion;
     private $hora_apertura;
-    private $hora_fin;
+    private $hora_cierre;
+    private $operador;
 
-    /**
-     * NULL en caso de que no tenga.
-     * Un array de oficinas en caso contrario.
-     */
-    private $oficinas_recogida;
-
-    public function __construct($id, $localidad, $telefono, $direccion, $hora_apertura, $hora_fin, $oficinas_recogida) {
+    function __construct($id, $localidad, $direccion_recogida, $devolucion_distinta_recogida, $telefono, $hora_apertura, $hora_cierre, $operador) {
         $this->id = $id;
         $this->localidad = $localidad;
+        $this->direccion_recogida = $direccion_recogida;
+        $this->devolucion_distinta_recogida = $devolucion_distinta_recogida;
         $this->telefono = $telefono;
-        $this->direccion = $direccion;
         $this->hora_apertura = $hora_apertura;
-        $this->hora_fin = $hora_fin;
-        $this->oficinas_recogida = $oficinas_recogida;
+        $this->hora_cierre = $hora_cierre;
+        $this->operador = $operador;
     }
 
-    public function getId() {
+    function getId() {
         return $this->id;
     }
 
-    public function getLocalidad() {
+    function getLocalidad() {
         return $this->localidad;
     }
 
-    public function getTelefono() {
+    function getDireccion_recogida() {
+        return $this->direccion_recogida;
+    }
+
+    function getDevolucion_distinta_recogida() {
+        return $this->devolucion_distinta_recogida;
+    }
+
+    function getTelefono() {
         return $this->telefono;
     }
 
-    public function getDireccion() {
-        return $this->direccion;
-    }
-
-    public function getHora_apertura() {
+    function getHora_apertura() {
         return $this->hora_apertura;
     }
 
-    public function getHora_fin() {
-        return $this->hora_fin;
+    function getHora_cierre() {
+        return $this->hora_cierre;
     }
 
-    public function getOficinas_recogida() {
-        return $this->oficinas_recogida;
+    function getOperador() {
+        return $this->operador;
     }
 
-    public function setId($id) {
+    function setId($id) {
         $this->id = $id;
     }
 
-    public function setLocalidad($localidad) {
+    function setLocalidad($localidad) {
         $this->localidad = $localidad;
     }
 
-    public function setTelefono($telefono) {
+    function setDireccion_recogida($direccion_recogida) {
+        $this->direccion_recogida = $direccion_recogida;
+    }
+
+    function setDevolucion_distinta_recogida($devolucion_distinta_recogida) {
+        $this->devolucion_distinta_recogida = $devolucion_distinta_recogida;
+    }
+
+    function setTelefono($telefono) {
         $this->telefono = $telefono;
     }
 
-    public function setDireccion($direccion) {
-        $this->direccion = $direccion;
-    }
-
-    public function setHora_apertura($hora_apertura) {
+    function setHora_apertura($hora_apertura) {
         $this->hora_apertura = $hora_apertura;
     }
 
-    public function setHora_fin($hora_fin) {
-        $this->hora_fin = $hora_fin;
+    function setHora_cierre($hora_cierre) {
+        $this->hora_cierre = $hora_cierre;
     }
 
-    public function setOficinas_recogida(ArrayObject $oficinas_recogida) {
-        $this->oficinas_recogida = $oficinas_recogida;
-    }
-
-    /**
-     * Devuelve una oficina de las de recogida asignadas
-     * @param int $id_oficina_recogida
-     * @return TransferOficina
-     */
-    public function getOficinaRecogida($id_oficina_recogida) {
-        foreach ($this->oficinas_recogida as $oficina) {
-            if ($oficina->getID() == $id_oficina_recogida) {
-                return $oficina;
-            }
-        }
-
-        return NULL;
+    function setOperador($operador) {
+        $this->operador = $operador;
     }
 
     /**
@@ -105,18 +96,11 @@ class TransferOficina {
         $string .= $this->id . "<br>";
         $string .= $this->localidad . "<br>";
         $string .= $this->telefono . "<br>";
-        $string .= $this->direccion . "<br>";
+        $string .= $this->direccion_recogida . "<br>";
         $string .= $this->hora_apertura . "<br>";
         $string .= $this->hora_fin . "<br>";
-
-        if(!is_null($this->oficinas_recogida)) {
-            foreach ($this->oficinas_recogida as $oficina_recogida) {
-                $string .= "_________________" . "<br>";
-                $string .= $oficina_recogida . "<br>";
-            }
-        }else{
-            $string .= "NULL <br>";
-        }
+        $string .= $this->devolucion_distinta_recogida . "<br>";
+        $string .= $this->operador . "<br>";
 
 
         return $string;
