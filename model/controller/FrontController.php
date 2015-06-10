@@ -81,7 +81,11 @@ class FrontController {
                         FactorySA::getInstance()->getSATarifa()->delete($data);
                         break;
                     case Operations::TOLIST:
-
+                        try {
+                            return FactorySA::getInstance()->getSATarifa()->toList();
+                        } catch (Exception $exception) {
+                            echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
+                        }
                         break;
                 }
 

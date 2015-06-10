@@ -41,4 +41,12 @@ class SATarifa {
         FactoryDAO::getInstance()->getDAOTarifa()->delete($id);
     }
 
+    /**
+     * Devuelve una lista de ids de tarifas registradas
+     * @return int[]
+     */
+    public function toList() {
+        return FactoryDAO::getInstance()->getDAOTarifa()->toList();
+    }
+
 }

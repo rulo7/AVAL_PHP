@@ -118,4 +118,23 @@ class DAOTarifa {
         }
     }
 
+    public function toList() {
+        $query = "SELECT * FROM `tarifas`";
+        try {
+            $datos = $this->connection->read($query);
+            if (!$datos) {
+                throw new Exception("no se han encontrado resultados");
+            } else {
+
+                for ($i = 0; $i < count($datos); $i++) {
+                    $ids[$i] = $datos[$i]["ID"];
+                }
+
+                return $ids;
+            }
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
 }
