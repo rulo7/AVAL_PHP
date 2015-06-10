@@ -142,6 +142,11 @@ class FrontController {
                         FactorySA::getInstance()->getSAReserva()->delete($data);
                         break;
                     case Operations::TOLIST:
+                        try {
+                            return FactorySA::getInstance()->getSAReserva()->toList();
+                        } catch (Exception $exception) {
+                            echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
+                        }
 
                         break;
                 }

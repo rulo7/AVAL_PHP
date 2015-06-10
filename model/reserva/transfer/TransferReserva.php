@@ -11,6 +11,7 @@ class TransferReserva {
     private $oficina_devolucion;
     private $cargado_cuenta;
     private $estado;
+    private $NIF;
     private $nombre;
     private $apellidos;
     private $email;
@@ -19,12 +20,12 @@ class TransferReserva {
     private $nacionalidad;
     private $fecha_nacimiento;
     private $extra_gps;
-    private $extra_silla_niño;
+    private $extra_silla_bebe;
     private $extra_silla_elevador;
     private $extra_portaesquis;
     private $extra_cadenas;
 
-    function __construct($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_niño, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas) {
+    function __construct($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas) {
         $this->id = $id;
         $this->tarifa = $tarifa;
         $this->momento_recogida = $momento_recogida;
@@ -32,6 +33,7 @@ class TransferReserva {
         $this->oficina_devolucion = $oficina_devolucion;
         $this->cargado_cuenta = $cargado_cuenta;
         $this->estado = $estado;
+        $this->NIF = $NIF;
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->email = $email;
@@ -40,7 +42,7 @@ class TransferReserva {
         $this->nacionalidad = $nacionalidad;
         $this->fecha_nacimiento = $fecha_nacimiento;
         $this->extra_gps = $extra_gps;
-        $this->extra_silla_niño = $extra_silla_niño;
+        $this->extra_silla_bebe = $extra_silla_bebe;
         $this->extra_silla_elevador = $extra_silla_elevador;
         $this->extra_portaesquis = $extra_portaesquis;
         $this->extra_cadenas = $extra_cadenas;
@@ -90,6 +92,10 @@ class TransferReserva {
         return $this->estado;
     }
 
+    function getNIF() {
+        return $this->NIF;
+    }
+
     function getNombre() {
         return $this->nombre;
     }
@@ -118,8 +124,8 @@ class TransferReserva {
         return $this->extra_gps;
     }
 
-    function getExtra_silla_niño() {
-        return $this->extra_silla_niño;
+    function getExtra_silla_bebe() {
+        return $this->extra_silla_bebe;
     }
 
     function getExtra_silla_elevador() {
@@ -162,6 +168,10 @@ class TransferReserva {
         $this->estado = $estado;
     }
 
+    function setNIF($nif) {
+        $this->NIF = $nif;
+    }
+
     function setNombre($nombre) {
         $this->nombre = $nombre;
     }
@@ -190,8 +200,8 @@ class TransferReserva {
         $this->extra_gps = $extra_gps;
     }
 
-    function setExtra_silla_niño($extra_silla_niño) {
-        $this->extra_silla_niño = $extra_silla_niño;
+    function setExtra_silla_bebe($extra_silla_bebe) {
+        $this->extra_silla_bebe = $extra_silla_bebe;
     }
 
     function setExtra_silla_elevador($extra_silla_elevador) {
@@ -225,7 +235,7 @@ class TransferReserva {
         $string .= $this->nacionalidad . "<br>";
         $string .= $this->fecha_nacimiento . "<br>";
         $string .= $this->extra_gps . "<br>";
-        $string .= $this->extra_silla_niño . "<br>";
+        $string .= $this->extra_silla_bebe . "<br>";
         $string .= $this->extra_silla_elevador . "<br>";
         $string .= $this->extra_portaesquis . "<br>";
         $string .= $this->extra_cadenas . "<br>";

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-06-2015 a las 18:07:40
+-- Tiempo de generación: 11-06-2015 a las 01:38:52
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
   `hora_apertura` time NOT NULL,
   `hora_cierre` time NOT NULL,
   `operador` varchar(20) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `oficinas`
@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `oficina_devolucion` int(11) NOT NULL,
   `cargado_cuenta` float NOT NULL,
   `estado` enum('prueba','','','') COLLATE utf8_spanish_ci NOT NULL,
+  `NIF` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `apellidos` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
@@ -67,12 +68,19 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `telefono2` int(11) NOT NULL,
   `nacionalidad` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_nacimiento` date NOT NULL,
-  `extra_gps` int(11) NOT NULL,
-  `extra_silla_niño` int(11) NOT NULL,
-  `extra_silla_elevador` int(11) NOT NULL,
-  `extra_portaesquis` int(11) NOT NULL,
-  `extra_cadenas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+  `extra_gps` tinyint(1) NOT NULL,
+  `extra_silla_bebe` tinyint(1) NOT NULL,
+  `extra_silla_elevador` tinyint(1) NOT NULL,
+  `extra_portaesquis` tinyint(1) NOT NULL,
+  `extra_cadenas` tinyint(1) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `reservas`
+--
+
+INSERT INTO `reservas` (`ID`, `tarifa`, `momento_recogida`, `momento_devolucion`, `oficina_devolucion`, `cargado_cuenta`, `estado`, `NIF`, `nombre`, `apellidos`, `email`, `telefono1`, `telefono2`, `nacionalidad`, `fecha_nacimiento`, `extra_gps`, `extra_silla_bebe`, `extra_silla_elevador`, `extra_portaesquis`, `extra_cadenas`) VALUES
+(3, 4, '2015-06-02 00:01:00', '2015-06-02 23:06:00', 2, 0.02, 'prueba', '12345678B', 'Cambio', 'Hernando Sanchez', 'raul.dinformatica@gmail.com', 123456789, 123456789, 'Cambiada', '2015-01-31', 1, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -168,12 +176,12 @@ ALTER TABLE `vehiculo`
 -- AUTO_INCREMENT de la tabla `oficinas`
 --
 ALTER TABLE `oficinas`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tarifas`
 --

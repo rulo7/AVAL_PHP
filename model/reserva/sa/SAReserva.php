@@ -40,5 +40,14 @@ class SAReserva {
     public function delete($id) {
         FactoryDAO::getInstance()->getDAOReserva()->delete($id);
     }
+    
+      
+    /**
+     * Devuelve una lista de ids de las reservas registradas
+     * @return int[]
+     */
+    public function toList() {
+        return FactoryDAO::getInstance()->getDAOReserva()->toList();
+    }
 
 }
