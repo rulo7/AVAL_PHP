@@ -4,7 +4,7 @@ require_once dirname(dirname(__DIR__)) . '/connection/FactoryConnection.php';
 require_once dirname(dirname(dirname(__DIR__))) . '/model/vehiculo/transfer/TransferVehiculo.php';
 
 class DAOVehiculo {
-    
+
     /** @var IConnection */
     private $connection;
 
@@ -23,12 +23,12 @@ class DAOVehiculo {
         $modelo = $transferVehiculo->getModelo();
         $puertas = $transferVehiculo->getPuertas();
         $plazas = $transferVehiculo->getPlazas();
-        $radio =$transferVehiculo->getRadio();
+        $radio = $transferVehiculo->getRadio();
         $aire = $transferVehiculo->getAire();
-        $metros_cubicos=$transferVehiculo->getMetros_cubicos;
-        $alto=$transferVehiculo->getAlto();
-        $ancho=$transferVehiculo->getAncho();
-        $largo=$transferVehiculo->getLargo();
+        $metros_cubicos = $transferVehiculo->getMetros_cubicos();
+        $alto = $transferVehiculo->getAlto();
+        $ancho = $transferVehiculo->getAncho();
+        $largo = $transferVehiculo->getLargo();
 
         $query = "INSERT INTO `vehiculo`(`tipo`, `grupo`, `modelo`, `puertas`, `plazas`, `radio`, `aire`,`metros_cubicos`,`alto`,`ancho`,`largo`) "
                 . "VALUES ('$tipo', '$grupo', '$modelo', '$puertas', '$plazas', '$radio', '$aire','$metros_cubicos','$alto','$ancho','$largo')";
@@ -86,12 +86,12 @@ class DAOVehiculo {
         $modelo = $transferVehiculo->getModelo();
         $puertas = $transferVehiculo->getPuertas();
         $plazas = $transferVehiculo->getPlazas();
-        $radio =$transferVehiculo->getRadio();
+        $radio = $transferVehiculo->getRadio();
         $aire = $transferVehiculo->getAire();
-        $metros_cubicos=$transferVehiculo->getMetros_cubicos;
-        $alto=$transferVehiculo->getAlto();
-        $ancho=$transferVehiculo->getAncho();
-        $largo=$transferVehiculo->getLargo();
+        $metros_cubicos = $transferVehiculo->getMetros_cubicos();
+        $alto = $transferVehiculo->getAlto();
+        $ancho = $transferVehiculo->getAncho();
+        $largo = $transferVehiculo->getLargo();
 
         $query = "UPDATE `vehiculo` "
                 . "SET `tipo`='$tipo',`grupo`='$grupo',`modelo`='$modelo',`puertas`=$puertas,`plazas`=$plazas,`radio`=$radio,`aire`='$aire',`metros_cubicos`='$metros_cubicos',`alto`='$alto',`ancho`='$ancho',`largo`='$largo'"
@@ -115,7 +115,7 @@ class DAOVehiculo {
             echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
         }
     }
-    
+
     /**
      * Devuelve una lista de ids de vehiculos registrados
      * @return int[]
@@ -128,7 +128,7 @@ class DAOVehiculo {
                 throw new Exception("no se han encontrado resultados");
             } else {
 
-                for ($i = 0; $i < count($datos); $i++){
+                for ($i = 0; $i < count($datos); $i++) {
                     $ids[$i] = $datos[$i]["ID"];
                 }
 

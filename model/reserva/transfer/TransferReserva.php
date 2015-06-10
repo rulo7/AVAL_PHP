@@ -7,6 +7,8 @@ class TransferReserva {
     private $tarifa;
     private $momento_recogida;
     private $momento_devolucion;
+    /*     * @var TransferOficina */
+    private $oficina_devolucion;
     private $cargado_cuenta;
     private $estado;
     private $nombre;
@@ -22,11 +24,12 @@ class TransferReserva {
     private $extra_portaesquis;
     private $extra_cadenas;
 
-    function __construct($id, $tarifa, $momento_recogida, $momento_devolucion, $cargado_cuenta, $estado, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_niño, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas) {
+    function __construct($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_niño, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas) {
         $this->id = $id;
         $this->tarifa = $tarifa;
         $this->momento_recogida = $momento_recogida;
         $this->momento_devolucion = $momento_devolucion;
+        $this->oficina_devolucion = $oficina_devolucion;
         $this->cargado_cuenta = $cargado_cuenta;
         $this->estado = $estado;
         $this->nombre = $nombre;
@@ -69,6 +72,14 @@ class TransferReserva {
 
     function getMomento_devolucion() {
         return $this->momento_devolucion;
+    }
+
+    /**
+     * 
+     * @return TransferOficina
+     */
+    function getOficina_devolucion() {
+        return $this->oficina_devolucion;
     }
 
     function getCargado_cuenta() {
@@ -137,6 +148,10 @@ class TransferReserva {
 
     function setMomento_devolucion($momento_devolucion) {
         $this->momento_devolucion = $momento_devolucion;
+    }
+
+    function setOficina_devolucion($oficina_devolucion) {
+        $this->oficina_devolucion = $oficina_devolucion;
     }
 
     function setCargado_cuenta($cargado_cuenta) {

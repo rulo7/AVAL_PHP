@@ -13,8 +13,12 @@ if (!isset($_REQUEST["operation"])) {
 
     $ids = FrontController::getInstance()->execute(Entities::VEHICULO, Operations::TOLIST, null);
 
-    foreach ($ids as $id) {
-        $name = FrontController::getInstance()->execute(Entities::VEHICULO, Operations::READ, $id)->getNombre();
-        echo "<p><a href='viewVehiculo.php?operation=" . $_REQUEST["operation"] . "&id=$id'><button type='button' >$name</button></a></p>";
+    if (sizeof($ids) > 0) {
+        foreach ($ids as $id) {
+            $modelo = FrontController::getInstance()->execute(Entities::VEHICULO, Operations::READ, $id)->getModelo();
+            echo "<p><a href='viewVehiculo.php?operation=" . $_REQUEST["operation"] . "&id=$id'><button type='button' >$modelo</button></a></p>";
+        }
+    } else {
+        echo "sin resultados";
     }
 }

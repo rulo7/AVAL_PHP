@@ -1,6 +1,5 @@
 <?php
 
-
 require_once dirname(dirname(__DIR__)) . '/model/controller/FrontController.php';
 require_once dirname(dirname(__DIR__)) . '/model/vehiculo/transfer/TransferVehiculo.php';
 require_once dirname(dirname(__DIR__)) . '/model/enums/Entities.php';
@@ -14,13 +13,18 @@ switch ($operation) {
 
         //$id = $_REQUEST["id"];
         $tipo = $_REQUEST["tipo"];
-        $nombre = $_REQUEST["nombre"];
+        $grupo = $_REQUEST["grupo"];
+        $modelo = $_REQUEST["modelo"];
         $puertas = $_REQUEST["puertas"];
         $plazas = $_REQUEST["plazas"];
-        $musica = (isset($_REQUEST["musica"])) ? $_REQUEST["musica"] : 0;
-        $motor = $_REQUEST["motor"];
+        $radio = (isset($_REQUEST["radio"])) ? $_REQUEST["radio"] : 0;
+        $aire = (isset($_REQUEST["aire"])) ? $_REQUEST["aire"] : 0;
+        $metros_cubicos = $_REQUEST["metros_cubicos"];
+        $alto = $_REQUEST["alto"];
+        $ancho = $_REQUEST["alto"];
+        $largo = $_REQUEST["largo"];
 
-        $vehiculo = new TransferVehiculo(0, $tipo, $nombre, $puertas, $plazas, $musica, $motor);
+        $vehiculo = new TransferVehiculo(0, $tipo, $grupo, $modelo, $puertas, $plazas, $radio, $aire, $metros_cubicos, $alto, $ancho, $largo);
         FrontController::getInstance()->execute($entity, $operation, $vehiculo);
 
         break;
@@ -28,24 +32,32 @@ switch ($operation) {
         // no hace nada, en un futuro informa que alguien ha leido algo ...
         break;
     case Operations::UPDATE:
-        
+
         $id = $_REQUEST["id"];
         $tipo = $_REQUEST["tipo"];
-        $nombre = $_REQUEST["nombre"];
+        $grupo = $_REQUEST["grupo"];
+        $modelo = $_REQUEST["modelo"];
         $puertas = $_REQUEST["puertas"];
         $plazas = $_REQUEST["plazas"];
-        $musica = $_REQUEST["musica"];
-        $motor = $_REQUEST["motor"];
+        $radio = (isset($_REQUEST["radio"])) ? $_REQUEST["radio"] : 0;
+        $aire = (isset($_REQUEST["aire"])) ? $_REQUEST["aire"] : 0;
+        $metros_cubicos = $_REQUEST["metros_cubicos"];
+        $alto = $_REQUEST["alto"];
+        $ancho = $_REQUEST["alto"];
+        $largo = $_REQUEST["largo"];
 
-        $vehiculo = new TransferVehiculo($id, $tipo, $nombre, $puertas, $plazas, $musica, $motor);
+        $vehiculo = new TransferVehiculo($id, $tipo, $grupo, $modelo, $puertas, $plazas, $radio, $aire, $metros_cubicos, $alto, $ancho, $largo);
         FrontController::getInstance()->execute($entity, $operation, $vehiculo);
-        
+
         break;
     case Operations::DELETE:
-        
+
         $id = $_REQUEST["id"];
-        
+
         FrontController::getInstance()->execute($entity, $operation, $id);
-        
+
+
         break;
 }
+
+echo "<p><a href='operationsVehiculo.php'><button type='button' >VOLVER</button></a></p>";

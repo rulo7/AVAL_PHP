@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(dirname(__DIR__)) . '/connection/FactoryConnection.php';
+require_once dirname(dirname(__DIR__)) . '/FactoryDAO.php';
 
 class DAOTarifa {
 
@@ -17,8 +18,9 @@ class DAOTarifa {
      */
     public function create($transferTarifa) {
 
-        
+
         $grupo = $transferTarifa->getGrupo();
+        $oficina = $transferTarifa->getOficina()->getId();
         $modulo_tramos = $transferTarifa->getModulo_tramos();
         $precio_tramo1 = $transferTarifa->getPrecio_tramo1();
         $precio_tramo2 = $transferTarifa->getPrecio_tramo2();
@@ -28,8 +30,10 @@ class DAOTarifa {
         $precio_km_extra = $transferTarifa->getPrecio_km_extra();
 
 
-        $query = "INSERT INTO `tarifas`(`grupo`, `modulo_tramos`, `precio_tramo1`, `precio_tramo2`,`precio_tramo3`,`precio_tramo4`,`km_max_diarios`, `precio_km_extra`)"
-                . "VALUES ($grupo','$modulo_tramos','$precio_tramo1','$precio_tramo2','$precio_tramo3','$precio_tramo4','$km_max_diarios',$precio_km_extra')";
+
+
+        $query = "INSERT INTO `tarifas`(`grupo`, `oficina`, `modulo_tramos`, `precio_tramo1`, `precio_tramo2`,`precio_tramo3`,`precio_tramo4`,`km_max_diarios`, `precio_km_extra`)"
+                . "VALUES ('$grupo', $oficina, $modulo_tramos,$precio_tramo1,$precio_tramo2,$precio_tramo3,$precio_tramo4,$km_max_diarios,$precio_km_extra)";
         try {
             $this->connection->write($query);
         } catch (Exception $exception) {
@@ -54,6 +58,9 @@ class DAOTarifa {
 
                 $id = $datos[0]["ID"];
                 $grupo = $datos[0]["grupo"];
+
+                $oficina = FactoryDAO::getInstance()->getDAOOficina()->read($datos[0]["oficina"]);
+
                 $modulo_tramos = $datos[0]["modulo_tramos"];
                 $precio_tramo1 = $datos[0]["precio_tramo1"];
                 $precio_tramo2 = $datos[0]["precio_tramo2"];
@@ -62,7 +69,7 @@ class DAOTarifa {
                 $km_max_diarios = $datos[0]["km_max_diarios"];
                 $precio_km_extra = $datos[0]["precio_km_extra"];
 
-                return new TransferTarifa($id, $grupo, $modulo_tramos, $precio_tramo1, $precio_tramo2, $precio_tramo3, $precio_tramo4, $km_max_diarios, $precio_km_extra);
+                return new TransferTarifa($id, $grupo, $oficina, $modulo_tramos, $precio_tramo1, $precio_tramo2, $precio_tramo3, $precio_tramo4, $km_max_diarios, $precio_km_extra);
             }
         } catch (Exception $exception) {
             throw $exception;
@@ -77,6 +84,7 @@ class DAOTarifa {
 
         $id = $transferTarifa->getId();
         $grupo = $transferTarifa->getGrupo();
+        $oficina = $transferTarifa->getOficina()->getId();
         $modulo_tramos = $transferTarifa->getModulo_tramos();
         $precio_tramo1 = $transferTarifa->getPrecio_tramo1();
         $precio_tramo2 = $transferTarifa->getPrecio_tramo2();
@@ -86,9 +94,9 @@ class DAOTarifa {
         $precio_km_extra = $transferTarifa->getPrecio_km_extra();
 
         $query = "UPDATE `tarifas`"
-                . " SET `id_vehiculo` = $id_vehiculo, `grupo` = $grupo,`modulo_tramos`=$modulo_tramos,"
-                . "`precio_tramo1` = $precio_tramo1,`precio_tramo2` = $precio_tramo2,`precio_tramo3` ="
-                . " $precio_tramo3,`precio_tramo4` = $precio_tramo4,`km_max_diarios` = $km_max_diarios,`precio_KM_extra` = $precio_km_extra"
+                . " SET `id_vehiculo`=$id_vehiculo, `grupo`='$grupo',`oficina`=$oficina, "
+                . "`modulo_tramos`=$modulo_tramos, `precio_tramo1`=$precio_tramo1,`precio_tramo2`=$precio_tramo2,`precio_tramo3`=$precio_tramo3, "
+                . "`precio_tramo4` = $precio_tramo4, `km_max_diarios`=$km_max_diarios, `precio_KM_extra`=$precio_km_extra"
                 . " WHERE id=$id";
         try {
             $this->connection->write($query);
