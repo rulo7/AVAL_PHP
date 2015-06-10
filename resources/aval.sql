@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-06-2015 a las 13:36:29
+-- Tiempo de generación: 10-06-2015 a las 14:54:52
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -28,14 +28,22 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `oficinas` (
 `ID` int(11) NOT NULL,
-  `localidad` varchar(3) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion_recogida` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `localidad` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `direccion_recogida` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `devolucion_distinta_recogida` tinyint(1) NOT NULL,
   `telefono` int(11) NOT NULL,
   `hora_apertura` time NOT NULL,
   `hora_cierre` time NOT NULL,
   `operador` varchar(20) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `oficinas`
+--
+
+INSERT INTO `oficinas` (`ID`, `localidad`, `direccion_recogida`, `devolucion_distinta_recogida`, `telefono`, `hora_apertura`, `hora_cierre`, `operador`) VALUES
+(1, 'Alicante puerto', 'Calle Falsa 123', 1, 676801926, '12:56:00', '21:00:00', 'euroscar'),
+(2, 'Madrid sur', 'Calle del doctor fleming 23, 28042, Madrid', 0, 628912345, '12:00:00', '20:30:00', 'arval');
 
 -- --------------------------------------------------------
 
@@ -103,7 +111,14 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `alto` float NOT NULL,
   `ancho` float NOT NULL,
   `largo` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `vehiculo`
+--
+
+INSERT INTO `vehiculo` (`ID`, `tipo`, `grupo`, `modelo`, `puertas`, `plazas`, `radio`, `aire`, `metros_cubicos`, `alto`, `ancho`, `largo`) VALUES
+(2, 'industrial', '2', 'Renault Kangoo', 4, 5, 0, 1, 2.5, 3.6, 3.6, 6.2);
 
 --
 -- Índices para tablas volcadas
@@ -141,7 +156,7 @@ ALTER TABLE `vehiculo`
 -- AUTO_INCREMENT de la tabla `oficinas`
 --
 ALTER TABLE `oficinas`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `reservas`
 --
@@ -156,7 +171,7 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Restricciones para tablas volcadas
 --

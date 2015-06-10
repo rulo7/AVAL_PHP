@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(dirname(__DIR__)) . '/connection/FactoryConnection.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/model/oficina/transfer/TransferOficina.php';
 
 class DAOOficina {
 
@@ -27,7 +28,7 @@ class DAOOficina {
 
         $query = "INSERT INTO `oficinas`"
                 . "(`localidad`,`direccion_recogida`,`devolucion_distinta_recogida`, `telefono`, `hora_apertura`, `hora_cierre`,`operador`) "
-                . "VALUES ('$localidad','$direccion_recogida','$devolucion_distinta_recogida','$telefono',$hora_apertura','$hora_cierre','$operador')";
+                . "VALUES ('$localidad','$direccion_recogida','$devolucion_distinta_recogida','$telefono','$hora_apertura','$hora_cierre','$operador')";
 
         try {
             $this->connection->write($query);
@@ -84,8 +85,8 @@ class DAOOficina {
         $operador = $transferOficina->getOperador();
 
         $query = "UPDATE `oficinas` SET "
-                . "`ID`=$id,`localidad`='$localidad',`direccion_recogida` = $direccion_recogida, `devolucion_distinta_recogida` = $devolucion_distinta_recogida,"
-                . "`telefono`=$telefono,`hora_apertura`='$hora_apertura',`hora_cierre`='$hora_cierre',`operador` = $operador "
+                . "`ID`=$id,`localidad`='$localidad',`direccion_recogida` = '$direccion_recogida', `devolucion_distinta_recogida` = $devolucion_distinta_recogida,"
+                . "`telefono`=$telefono,`hora_apertura`='$hora_apertura',`hora_cierre`='$hora_cierre',`operador` = '$operador' "
                 . "WHERE `ID`=$id";
         try {
             $this->connection->write($query);
@@ -111,22 +112,25 @@ class DAOOficina {
     }
 
     /**
-     * Devuelve una lista de todos los IDs de los behiculos de la flota
-     * @return ArrayObject
+     * Devuelve una lista de ids de las oficinas registradas
+     * @return int[]
      */
-    public function readAll() {
+    public function toList() {
+        $query = "SELECT * FROM `oficinas`";
         try {
-            $datos = $this->connection->read("SELECT ID FROM `oficinas`");
+            $datos = $this->connection->read($query);
+            if (!$datos) {
+                throw new Exception("no se han encontrado resultados");
+            } else {
 
-            $i = 0;
-            foreach ($datos as $oficina) {
-                $oficinas[$i] = $this->read($oficina["ID"]);
-                $i++;
+                for ($i = 0; $i < count($datos); $i++) {
+                    $ids[$i] = $datos[$i]["ID"];
+                }
+
+                return $ids;
             }
-
-            return $oficinas;
         } catch (Exception $exception) {
-            echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
+            throw $exception;
         }
     }
 

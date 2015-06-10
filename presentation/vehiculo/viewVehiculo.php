@@ -102,8 +102,8 @@ switch ($operation) {
 
         $id = $_REQUEST["id"];
         echo "<p>Seguro de que deseas eliminar?</p>";
-        echo "<p><a href='vehiculoExecutor.php?operation=$operation&id=$id' target='_blank'><button type='button' >SI</button></a>";
-        echo "<a href='volver' target='_blank'><button type='button' >NO</button></a></p>";
+        echo "<p><a href='vehiculoExecutor.php?operation=$operation&id=$id'><button type='button' >SI</button></a>";
+        echo "<a href='viewVehiculo.php'><button type='button' >NO</button></a></p>";
 
         break;
 }

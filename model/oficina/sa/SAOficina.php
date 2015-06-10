@@ -34,11 +34,19 @@ class SAOficina {
     }
 
     /**
-     * da de baja un oficina del registro
+     * Da de baja un oficina del registro
      * @param TransferOficina $id
      */
     public function delete($id) {
         FactoryDAO::getInstance()->getDAOOficina()->delete($id);
+    }
+
+    /**
+     * Devuelve una lista de ids de oficinas registradas
+     * @return int[]
+     */
+    public function toList() {
+        return FactoryDAO::getInstance()->getDAOOficina()->toList();
     }
 
 }

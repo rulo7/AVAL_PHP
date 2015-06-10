@@ -49,7 +49,7 @@ class FrontController {
                     case Operations::DELETE:
                         FactorySA::getInstance()->getSAVehiculo()->delete($data);
                         break;
-                    
+
                     case Operations::TOLIST:
                         try {
                             return FactorySA::getInstance()->getSAVehiculo()->toList();
@@ -81,7 +81,7 @@ class FrontController {
                         FactorySA::getInstance()->getSATarifa()->delete($data);
                         break;
                     case Operations::TOLIST:
-                        
+
                         break;
                 }
 
@@ -89,7 +89,7 @@ class FrontController {
 
             case Entities::OFICINA:
 
-               switch ($operation) {
+                switch ($operation) {
                     case Operations::CREATE:
                         FactorySA::getInstance()->getSAOficina()->create($data);
                         break;
@@ -107,7 +107,12 @@ class FrontController {
                         FactorySA::getInstance()->getSAOficina()->delete($data);
                         break;
                     case Operations::TOLIST:
-                        
+                        try {
+                            return FactorySA::getInstance()->getSAOficina()->toList();
+                        } catch (Exception $exception) {
+                            echo 'Excepction was captured: ' . $exception->getMessage() . "<br>";
+                        }
+
                         break;
                 }
 
@@ -133,7 +138,7 @@ class FrontController {
                         FactorySA::getInstance()->getSAReserva()->delete($data);
                         break;
                     case Operations::TOLIST:
-                        
+
                         break;
                 }
 
