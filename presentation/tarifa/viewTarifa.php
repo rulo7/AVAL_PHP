@@ -8,20 +8,9 @@ $operation = $_REQUEST['operation'];
 switch ($operation) {
     case Operations::CREATE:
 
-        $this->id = $id;
-        $this->grupo = $grupo;
-        $this->oficina = $oficina;
-        $this->modulo_tramos = $modulo_tramos;
-        $this->precio_tramo1 = $precio_tramo1;
-        $this->precio_tramo2 = $precio_tramo2;
-        $this->precio_tramo3 = $precio_tramo3;
-        $this->precio_tramo4 = $precio_tramo4;
-        $this->km_max_diarios = $km_max_diarios;
-        $this->precio_km_extra = $precio_km_extra;
-
         echo "<form method='post' action='tarifaExecutor.php?operation=$operation'>";
         //echo "<p>ID: <input type='text'  name='id' id='id_id' placeholder='Ej: 1 required></p>";
-        echo "<select name='grupo' id='id_grupo'>";
+        echo "<p>Grupo de vehiculos: <select name='grupo' id='id_grupo'>";
         echo "<option value='A'>A</option>";
         echo "<option value='B'>B</option>";
         echo "<option value='C'>C</option>";
@@ -29,19 +18,34 @@ switch ($operation) {
         echo "<option value='2'>2</option>";
         echo "</select></p>";
 
-        
-        
-        echo "<p>Grupo: <input type='text'  name='grupo' placeholder='A,B,1,2...' id='id_grupo'  required></p>";
-        echo "<p>Modelo: <input type='text'  name='modelo' id='id_modelo' placeholder='Fiat Panda, Seat Leon...' required></p>";
-        echo "<p>Puertas: <input type='number'  name='puertas' id='id_puertas' placeholder='Ej:4'  required></p>";
-        echo "<p>Plazas: <input type='number'  name='plazas' id='id_plazas' placeholder='Ej:5' required></p>";
-        echo "<p>Radio: <input type='checkbox'  name='radio' id='id_radio' value='1'></p>";
-        echo "<p>Aire: <input type='checkbox'  name='aire' id='id_aire' value='1'></p>";
-        echo "<u>SOLO INDUSTRIALES</u>";
-        echo "<p>Metros cubicos: <input step='0.01' type='number'  name='metros_cubicos' id='id_metros_cubicos' placeholder='Ej:3'></p>";
-        echo "<p>Alto(m): <input step='0.01' type='number'  name='alto' id='id_alto' placeholder='2'></p>";
-        echo "<p>Ancho(m): <input step='0.01' type='number'  name='ancho' id='id_ancho' placeholder='1.5'></p>";
-        echo "<p>Largo(m): <input step='0.01' type='number'  name='largo' id='id_largo' placeholder='4.6'></p>";
+
+
+        $idOficinas = FrontController::getInstance()->execute(Entities::OFICINA, Operations::TOLIST, null);
+
+        if (sizeof($idOficinas) > 0) {
+            echo "<p>Localidad: <select name='oficina' id='id_oficina'>";
+            foreach ($idOficinas as $idOficina) {
+                $localidad = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ, $idOficina)->getLocalidad();
+
+                echo "<option value='$idOficina'>$localidad</option>";
+            }
+            echo "</select></p>";
+        } else {
+            echo "<p>No existen oficinas, crea alguna si quieres registrar una tarifa</p>";
+        }
+
+        echo "<p>Tramos: ";
+        echo "<select name='modulo_tramos' id='id_grupo'>";
+        echo "<option value='1'>1-3,4-7,8-12,13+</option>";
+        echo "<option value='2'>1-5,6-9,10-15,15+</option>";
+        echo "</select></p>";
+
+        echo "<p>Precio tramo 1(eur): <input step='0.01' type='number'  name='precio_tramo1' id='id_precio_tramo1' placeholder='13.42'></p>";
+        echo "<p>Precio tramo 2(eur): <input step='0.01' type='number'  name='precio_tramo2' id='id_precio_tramo2' placeholder='16.50'></p>";
+        echo "<p>Precio tramo 3(eur): <input step='0.01' type='number'  name='precio_tramo3' id='id_precio_tramo3' placeholder='10'></p>";
+        echo "<p>Precio tramo 4(eur): <input step='0.01' type='number'  name='precio_tramo4' id='id_precio_tramo4' placeholder='18.5'></p>";
+        echo "<p>Km maximos diarios: (Km): <input step='0.01' type='number'  name='km_max_diarios' id='id_km_max_diarios' placeholder='350.22'></p>";
+        echo "<p>Precio Km extra: (eur): <input step='0.01' type='number'  name='precio_km_extra' id='id_precio_km_extra' placeholder='3.25'></p>";
         echo "<p><input type='submit' value='Crear'></p>";
         echo "</form>";
 
@@ -49,69 +53,109 @@ switch ($operation) {
 
     case Operations::READ:
 
-        $transferVehiculo = FrontController::getInstance()->execute(Entities::VEHICULO, Operations::READ, $_REQUEST["id"]);
+        $transferTarifa = FrontController::getInstance()->execute(Entities::TARIFA, Operations::READ, $_REQUEST["id"]);
 
-        $id = $transferVehiculo->getId();
-        $tipo = $transferVehiculo->getTipo();
-        $grupo = $transferVehiculo->getGrupo();
-        $modelo = $transferVehiculo->getModelo();
-        $puertas = $transferVehiculo->getPuertas();
-        $plazas = $transferVehiculo->getPlazas();
-        $radio = ($transferVehiculo->getRadio()) ? "si" : "no";
-        $aire = ($transferVehiculo->getAire()) ? "si" : "no";
-        $metros_cubicos = $transferVehiculo->getMetros_cubicos();
-        $alto = $transferVehiculo->getAlto();
-        $ancho = $transferVehiculo->getAncho();
-        $largo = $transferVehiculo->getLargo();
+        $id = $transferTarifa->getId();
+        $grupo = $transferTarifa->getGrupo();
+        $localidad = $transferTarifa->getOficina()->getLocalidad();
+        $modulo_tramos = $transferTarifa->getModulo_tramos();
+        $precio_tramo1 = $transferTarifa->getPrecio_tramo1();
+        $precio_tramo2 = $transferTarifa->getPrecio_tramo2();
+        $precio_tramo3 = $transferTarifa->getPrecio_tramo3();
+        $precio_tramo4 = $transferTarifa->getPrecio_tramo4();
+        $km_max_diarios = $transferTarifa->getKm_max_diarios();
+        $precio_km_extra = $transferTarifa->getPrecio_km_extra();
 
         echo "<p>ID: <input readonly type='text'  name='id' id='id_id' value='$id'></p>";
-        echo "<p>Tipo: <input readonly type='text'  name='tipo' id='id_tipo' value='$tipo'></p>";
-        echo "<p>Grupo: <input readonly type='text'  name='grupo' id='id_grupo' value='$grupo'></p>";
-        echo "<p>Modelo: <input readonly type='text' name='modelo' id='id_modelo' value='$modelo'></p>";
-        echo "<p>Puertas: <input readonly type='number'  name='puertas' id='id_puertas' value='$puertas'></p>";
-        echo "<p>Plazas: <input readonly type='number'  name='plazas' id='id_plazas' value='$plazas'></p>";
-        echo "<p>Radio: $radio</p>";
-        echo "<p>Aire: $aire</p>";
-        echo "<p>Metros cubicos: <input step='0.01' readonly type='number'  name='metros_cubicos' id='id_metros_cubicos' value='$metros_cubicos'></p>";
-        echo "<p>Alto(m): <input step='0.01' readonly type='number'  name='alto' id='id_alto' value='$alto'></p>";
-        echo "<p>Ancho(m): <input step='0.01' readonly type='number'  name='ancho' id='id_ancho' value='$ancho'></p>";
-        echo "<p>Largo(m): <input step='0.01' readonly type='number'  name='largo' id='id_largo' value='$largo'></p>";
+        echo "<p>Grupo de vehiculos: <input readonly type='text'  name='grupo' id='id_grupo' value='$grupo'></p>";
+        echo "<p>Localidad: <input readonly type='text'  name='localidad' id='id_localidad' value='$localidad'></p>";
+        echo "<p>Tramos: ";
+        switch ($modulo_tramos) {
+            case 1:
+                echo "1-3,4-7,8-12,13+";
+                break;
+            case 2:
+                echo "1-5,6-9,10-15,15+";
+                break;
+        }
+        echo "</p>";
+        echo "<p>Precio tramo 1(eur): <input readonly step='0.01' type='number'  name='precio_tramo_1' id='id_precio_tramo_1' value='$precio_tramo1'></p>";
+        echo "<p>Precio tramo 2(eur): <input readonly step='0.01' type='number'  name='precio_tramo_2' id='id_precio_tramo_2' value='$precio_tramo2'></p>";
+        echo "<p>Precio tramo 3(eur): <input readonly step='0.01' type='number'  name='precio_tramo_3' id='id_precio_tramo_3' value='$precio_tramo3'></p>";
+        echo "<p>Precio tramo 4(eur): <input readonly step='0.01' type='number'  name='precio_tramo_4' id='id_precio_tramo_4' value='$precio_tramo4'></p>";
+        echo "<p>Km maximos diarios: (Km): <input readonly step='0.01' type='number'  name='km_max_diarios' id='id_km_max_diarios' value='$km_max_diarios'></p>";
+        echo "<p>Precio Km extra: (eur): <input readonly step='0.01' type='number'  name='precio_km_extra' id='id_precio_km_extra' value='$precio_km_extra'></p>";
 
 
         break;
 
     case Operations::UPDATE:
 
-        $transferVehiculo = FrontController::getInstance()->execute(Entities::VEHICULO, Operations::READ, $_REQUEST["id"]);
+        $transferTarifa = FrontController::getInstance()->execute(Entities::TARIFA, Operations::READ, $_REQUEST["id"]);
 
-        $id = $transferVehiculo->getId();
-        $tipo = $transferVehiculo->getTipo();
-        $grupo = $transferVehiculo->getGrupo();
-        $modelo = $transferVehiculo->getModelo();
-        $puertas = $transferVehiculo->getPuertas();
-        $plazas = $transferVehiculo->getPlazas();
-        $radio = $transferVehiculo->getRadio();
-        $aire = $transferVehiculo->getAire();
-        $metros_cubicos = $transferVehiculo->getMetros_cubicos();
-        $alto = $transferVehiculo->getAlto();
-        $ancho = $transferVehiculo->getAncho();
-        $largo = $transferVehiculo->getLargo();
+        $id = $transferTarifa->getId();
+        $grupo = $transferTarifa->getGrupo();
+        $oficina = $transferTarifa->getOficina();
+        $modulo_tramos = $transferTarifa->getModulo_tramos();
+        $precio_tramo1 = $transferTarifa->getPrecio_tramo1();
+        $precio_tramo2 = $transferTarifa->getPrecio_tramo2();
+        $precio_tramo3 = $transferTarifa->getPrecio_tramo3();
+        $precio_tramo4 = $transferTarifa->getPrecio_tramo4();
+        $km_max_diarios = $transferTarifa->getKm_max_diarios();
+        $precio_km_extra = $transferTarifa->getPrecio_km_extra();
 
-        echo "<form method='post' action='vehiculoExecutor.php?operation=$operation'>";
-        echo "<p>ID: <input  readonly type='text'  name='id' id='id_id' value='$id'></p>";
-        echo "<p>Tipo: <input  type='text'  name='tipo' id='id_tipo' value='$tipo'></p>";
-        echo "<p>Grupo: <input  type='text'  name='grupo' id='id_grupo' value='$grupo'></p>";
-        echo "<p>Modelo: <input  type='text' name='modelo' id='id_modelo' value='$modelo'></p>";
-        echo "<p>Puertas: <input  type='number'  name='puertas' id='id_puertas' value='$puertas'></p>";
-        echo "<p>Plazas: <input  type='number'  name='plazas' id='id_plazas' value='$plazas'></p>";
-        echo "<p>Radio: <input type='checkbox'  name='radio' id='id_radio' value='1' " . (($radio) ? "checked" : "") . "></p>";
-        echo "<p>Aire: <input type='checkbox'  name='aire' id='id_aire' value='1' " . (($aire) ? "checked" : "") . "></p>";
-        echo "<p>Metros cubicos: <input step='0.01' type='number'  name='metros_cubicos' id='id_metros_cubicos' value='$metros_cubicos'></p>";
-        echo "<p>Alto(m): <input step='0.01' type='number'  name='alto' id='id_alto' value='$alto'></p>";
-        echo "<p>Ancho(m): <input step='0.01' type='number'  name='ancho' id='id_ancho' value='$ancho'></p>";
-        echo "<p>Largo(m): <input step='0.01'  type='number'  name='largo' id='id_largo' value='$largo'></p>";
+        echo "<form method='post' action='tarifaExecutor.php?operation=$operation'>";
+
+
+        echo "<form method='post' action='tarifaExecutor.php?operation=$operation'>";
+        echo "<p>ID: <input readonly type='text'  name='id' id='id_id' value='$id' required></p>";
+        echo "<p>Grupo de vehiculos (actual: $grupo): <select name='grupo' id='id_grupo'>";
+        echo "<option value='A'>A</option>";
+        echo "<option value='B'>B</option>";
+        echo "<option value='C'>C</option>";
+        echo "<option value='1'>1</option>";
+        echo "<option value='2'>2</option>";
+        echo "</select></p>";
+
+
+
+        $idOficinas = FrontController::getInstance()->execute(Entities::OFICINA, Operations::TOLIST, null);
+
+
+        echo "<p>Localidad (actual: " . $oficina->getLocalidad() . "): <select name='oficina' id='id_oficina'>";
+        foreach ($idOficinas as $idOficina) {
+            $localidad = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ, $idOficina)->getLocalidad();
+
+            echo "<option value='$idOficina'>$localidad</option>";
+        }
+        echo "</select></p>";
+
+
+        echo "<p>Tramos (actual: ";
+        switch ($modulo_tramos) {
+            case 1:
+                echo "1-3,4-7,8-12,13+";
+                break;
+            case 2:
+                echo "1-5,6-9,10-15,15+";
+                break;
+        }
+        echo "): ";
+
+        echo "<select name='modulo_tramos' id='id_grupo'>";
+        echo "<option value='1'>1-3,4-7,8-12,13+</option>";
+        echo "<option value='2'>1-5,6-9,10-15,15+</option>";
+        echo "</select></p>";
+
+        echo "<p>Precio tramo 1(eur): <input  step='0.01' type='number'  name='precio_tramo1' id='id_precio_tramo1' value='$precio_tramo1'></p>";
+        echo "<p>Precio tramo 2(eur): <input  step='0.01' type='number'  name='precio_tramo2' id='id_precio_tramo2' value='$precio_tramo2'></p>";
+        echo "<p>Precio tramo 3(eur): <input  step='0.01' type='number'  name='precio_tramo3' id='id_precio_tramo3' value='$precio_tramo3'></p>";
+        echo "<p>Precio tramo 4(eur): <input  step='0.01' type='number'  name='precio_tramo4' id='id_precio_tramo4' value='$precio_tramo4'></p>";
+        echo "<p>Km maximos diarios: (Km): <input  step='0.01' type='number'  name='km_max_diarios' id='id_km_max_diarios' value='$km_max_diarios'></p>";
+        echo "<p>Precio Km extra: (eur): <input  step='0.01' type='number'  name='precio_km_extra' id='id_precio_km_extra' value='$precio_km_extra'></p>";
         echo "<p><input type='submit' value='Editar'></p>";
         echo "</form>";
+
 
         break;
 
@@ -119,8 +163,8 @@ switch ($operation) {
 
         $id = $_REQUEST["id"];
         echo "<p>Seguro de que deseas eliminar?</p>";
-        echo "<p><a href='vehiculoExecutor.php?operation=$operation&id=$id'><button type='button' >SI</button></a>";
-        echo "<a href='viewVehiculo.php'><button type='button' >NO</button></a></p>";
+        echo "<p><a href='tarifaExecutor.php?operation=$operation&id=$id'><button type='button' >SI</button></a>";
+        echo "<a href='viewTarifa.php'><button type='button' >NO</button></a></p>";
 
         break;
 }

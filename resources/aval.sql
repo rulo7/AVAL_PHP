@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 10-06-2015 a las 14:54:52
--- Versión del servidor: 5.6.21
--- Versión de PHP: 5.6.3
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-06-2015 a las 18:07:40
+-- Versión del servidor: 5.6.20
+-- Versión de PHP: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
   `hora_apertura` time NOT NULL,
   `hora_cierre` time NOT NULL,
   `operador` varchar(20) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `oficinas`
@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
 
 INSERT INTO `oficinas` (`ID`, `localidad`, `direccion_recogida`, `devolucion_distinta_recogida`, `telefono`, `hora_apertura`, `hora_cierre`, `operador`) VALUES
 (1, 'Alicante puerto', 'Calle Falsa 123', 1, 676801926, '12:56:00', '21:00:00', 'euroscar'),
-(2, 'Madrid sur', 'Calle del doctor fleming 23, 28042, Madrid', 0, 628912345, '12:00:00', '20:30:00', 'arval');
+(2, 'Madrid sur', 'Calle del doctor fleming 23, 28042, Madrid', 0, 628912345, '12:00:00', '20:30:00', 'arval'),
+(3, 'Murcia centro', 'Calle murciana 43, 89714 Murcia', 0, 629436789, '09:59:00', '00:00:00', 'euroscar');
 
 -- --------------------------------------------------------
 
@@ -71,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `extra_silla_elevador` int(11) NOT NULL,
   `extra_portaesquis` int(11) NOT NULL,
   `extra_cadenas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -83,14 +84,25 @@ CREATE TABLE IF NOT EXISTS `tarifas` (
 `ID` int(11) NOT NULL,
   `grupo` varchar(2) COLLATE utf8_spanish_ci NOT NULL,
   `oficina` int(11) NOT NULL,
-  `modulo_tramos` enum('prueba','','','') COLLATE utf8_spanish_ci NOT NULL,
+  `modulo_tramos` int(11) NOT NULL,
   `precio_tramo1` float NOT NULL,
   `precio_tramo2` float NOT NULL,
   `precio_tramo3` float NOT NULL,
   `precio_tramo4` float NOT NULL,
   `km_max_diarios` float NOT NULL,
   `precio_km_extra` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `tarifas`
+--
+
+INSERT INTO `tarifas` (`ID`, `grupo`, `oficina`, `modulo_tramos`, `precio_tramo1`, `precio_tramo2`, `precio_tramo3`, `precio_tramo4`, `km_max_diarios`, `precio_km_extra`) VALUES
+(3, 'A', 1, 1, 1.1, 1.2, 1.3, 1.4, 1, 1),
+(4, 'B', 2, 2, 2.1, 2.2, 2.3, 2.4, 2, 2),
+(5, 'C', 3, 1, 3.1, 3.2, 3.3, 3.4, 3, 3),
+(6, '1', 1, 2, 4.1, 4.2, 4.3, 4.4, 4, 4),
+(7, '2', 2, 2, 5.1, 5.2, 5.3, 5.4, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -111,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `alto` float NOT NULL,
   `ancho` float NOT NULL,
   `largo` float NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `vehiculo`
@@ -156,7 +168,7 @@ ALTER TABLE `vehiculo`
 -- AUTO_INCREMENT de la tabla `oficinas`
 --
 ALTER TABLE `oficinas`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `reservas`
 --
@@ -166,7 +178,7 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `tarifas`
 --
 ALTER TABLE `tarifas`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `vehiculo`
 --

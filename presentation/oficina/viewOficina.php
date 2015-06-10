@@ -14,8 +14,8 @@ switch ($operation) {
         echo "<p>Direccion de recogida: <input size='100' type='text'  name='direccion_recogida' id='id_direccion_recogida' placeholder='Calle Falsa 123, 29023 Madrid...' required></p>";
         echo "<p>Admite devolucion distinta de recogida: <input type='checkbox'  name='devolucion_distinta_recogida' id='id_devolucion_distinta_recogida' placeholder='1'></p>";
         echo "<p>Telefono: <input type='number'  name='telefono' id='id_telefono' placeholder='628456616' required></p>";
-        echo "<p>Hora de apertura(hh:mm:ss): <input type='time'  name='hora_apertura' id='id_hora_apertura' placeholder='12:56:00' required></p>";
-        echo "<p>Hora de cierre(hh:mm:ss): <input type='time'  name='hora_cierre' id='id_hora_cierre' placeholder='21:00:00' required></p>";
+        echo "<p>Hora de apertura(hh:mm): <input type='time'  name='hora_apertura' id='id_hora_apertura' placeholder='12:56' required></p>";
+        echo "<p>Hora de cierre(hh:mm): <input type='time'  name='hora_cierre' id='id_hora_cierre' placeholder='21:00' required></p>";
         echo "<p>Operador: <input type='text'  name='operador' placeholder='euroscar, arval...' id='id_localidad'  required></p>";
         echo "<p><input type='submit' placeholder='Crear'></p>";
         echo "</form>";
@@ -41,8 +41,8 @@ switch ($operation) {
         echo "<p>Direccion de recogida: <input size='100' readonly type='text'  name='direccion_recogida' id='id_direccion_recogida' value='$direccion_recogida' ></p>";
         echo "<p>Admite devolucion distinta de recogida: $devolucion_distinta_recogida</p>";
         echo "<p>Telefono: <input readonly type='number'  name='telefono' id='id_telefono' value='$telefono' ></p>";
-        echo "<p>Hora de apertura(hh:mm:ss): <input readonly type='time'  name='hora_apertura' id='id_hora_apertura' value='$hora_apertura' ></p>";
-        echo "<p>Hora de cierre(hh:mm:ss): <input readonly type='time'  name='hora_cierre' id='id_hora_cierre' value='$hora_cierre' ></p>";
+        echo "<p>Hora de apertura(hh:mm): <input readonly type='time'  name='hora_apertura' id='id_hora_apertura' value='$hora_apertura' ></p>";
+        echo "<p>Hora de cierre(hh:mm): <input readonly type='time'  name='hora_cierre' id='id_hora_cierre' value='$hora_cierre' ></p>";
         echo "<p>Operador: <input readonly type='text'  name='operador' value='$operador' id='id_localidad'  ></p>";
 
 
@@ -68,8 +68,8 @@ switch ($operation) {
         echo "<p>Direccion de recogida: <input size='100'  type='text'  name='direccion_recogida' id='id_direccion_recogida' value='$direccion_recogida' ></p>";
         echo "<p>Admite devolucion distinta de recogida: <input  type='checkbox'  name='devolucion_distinta_recogida' id='id_devolucion_distinta_recogida' value='1' " . (($devolucion_distinta_recogida) ? "checked" : "") . " ></p>";
         echo "<p>Telefono: <input  type='number'  name='telefono' id='id_telefono' value='$telefono' ></p>";
-        echo "<p>Hora de apertura(hh:mm:ss): <input  type='time'  name='hora_apertura' id='id_hora_apertura' value='$hora_apertura' ></p>";
-        echo "<p>Hora de cierre(hh:mm:ss): <input  type='time'  name='hora_cierre' id='id_hora_cierre' value='$hora_cierre' ></p>";
+        echo "<p>Hora de apertura(hh:mm): <input  type='time'  name='hora_apertura' id='id_hora_apertura' value='$hora_apertura' ></p>";
+        echo "<p>Hora de cierre(hh:mm): <input  type='time'  name='hora_cierre' id='id_hora_cierre' value='$hora_cierre' ></p>";
         echo "<p>Operador: <input  type='text'  name='operador' value='$operador' id='id_localidad'  ></p>";
         echo "<p><input type='submit' value='Editar'></p>";
         echo "</form>";

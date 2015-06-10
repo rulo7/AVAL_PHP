@@ -2,6 +2,8 @@
 
 require_once dirname(dirname(__DIR__)) . '/connection/FactoryConnection.php';
 require_once dirname(dirname(__DIR__)) . '/FactoryDAO.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/model/tarifa/transfer/TransferTarifa.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/model/oficina/transfer/TransferOficina.php';
 
 class DAOTarifa {
 
@@ -94,7 +96,7 @@ class DAOTarifa {
         $precio_km_extra = $transferTarifa->getPrecio_km_extra();
 
         $query = "UPDATE `tarifas`"
-                . " SET `id_vehiculo`=$id_vehiculo, `grupo`='$grupo',`oficina`=$oficina, "
+                . " SET `grupo`='$grupo',`oficina`=$oficina, "
                 . "`modulo_tramos`=$modulo_tramos, `precio_tramo1`=$precio_tramo1,`precio_tramo2`=$precio_tramo2,`precio_tramo3`=$precio_tramo3, "
                 . "`precio_tramo4` = $precio_tramo4, `km_max_diarios`=$km_max_diarios, `precio_KM_extra`=$precio_km_extra"
                 . " WHERE id=$id";

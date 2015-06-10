@@ -1,31 +1,29 @@
 <?php
 
 require_once dirname(dirname(__DIR__)) . '/model/controller/FrontController.php';
-require_once dirname(dirname(__DIR__)) . '/model/vehiculo/transfer/TransferVehiculo.php';
+require_once dirname(dirname(__DIR__)) . '/model/TARIFA/transfer/TransferTarifa.php';
 require_once dirname(dirname(__DIR__)) . '/model/enums/Entities.php';
 require_once dirname(dirname(__DIR__)) . '/model/enums/Operations.php';
 
-$entity = Entities::VEHICULO;
+$entity = Entities::TARIFA;
 $operation = $_REQUEST['operation'];
 
 switch ($operation) {
     case Operations::CREATE:
 
-        //$id = $_REQUEST["id"];
-        $tipo = $_REQUEST["tipo"];
-        $grupo = $_REQUEST["grupo"];
-        $modelo = $_REQUEST["modelo"];
-        $puertas = $_REQUEST["puertas"];
-        $plazas = $_REQUEST["plazas"];
-        $radio = (isset($_REQUEST["radio"])) ? $_REQUEST["radio"] : 0;
-        $aire = (isset($_REQUEST["aire"])) ? $_REQUEST["aire"] : 0;
-        $metros_cubicos = $_REQUEST["metros_cubicos"];
-        $alto = $_REQUEST["alto"];
-        $ancho = $_REQUEST["alto"];
-        $largo = $_REQUEST["largo"];
+        //$id = $_REQUEST['id'];
+        $grupo = $_REQUEST['grupo'];
+        $oficina = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ, $_REQUEST['oficina']);
+        $modulo_tramos = $_REQUEST['modulo_tramos'];
+        $precio_tramo1 = $_REQUEST['precio_tramo1'];
+        $precio_tramo2 = $_REQUEST['precio_tramo2'];
+        $precio_tramo3 = $_REQUEST['precio_tramo3'];
+        $precio_tramo4 = $_REQUEST['precio_tramo4'];
+        $km_max_diarios = $_REQUEST['km_max_diarios'];
+        $precio_km_extra = $_REQUEST['precio_km_extra'];
 
-        $vehiculo = new TransferVehiculo(0, $tipo, $grupo, $modelo, $puertas, $plazas, $radio, $aire, $metros_cubicos, $alto, $ancho, $largo);
-        FrontController::getInstance()->execute($entity, $operation, $vehiculo);
+        $tarifa = new TransferTarifa(0, $grupo, $oficina, $modulo_tramos, $precio_tramo1, $precio_tramo2, $precio_tramo3, $precio_tramo4, $km_max_diarios, $precio_km_extra);
+        FrontController::getInstance()->execute($entity, $operation, $tarifa);
 
         break;
     case Operations::READ:
@@ -33,21 +31,19 @@ switch ($operation) {
         break;
     case Operations::UPDATE:
 
-        $id = $_REQUEST["id"];
-        $tipo = $_REQUEST["tipo"];
-        $grupo = $_REQUEST["grupo"];
-        $modelo = $_REQUEST["modelo"];
-        $puertas = $_REQUEST["puertas"];
-        $plazas = $_REQUEST["plazas"];
-        $radio = (isset($_REQUEST["radio"])) ? $_REQUEST["radio"] : 0;
-        $aire = (isset($_REQUEST["aire"])) ? $_REQUEST["aire"] : 0;
-        $metros_cubicos = $_REQUEST["metros_cubicos"];
-        $alto = $_REQUEST["alto"];
-        $ancho = $_REQUEST["alto"];
-        $largo = $_REQUEST["largo"];
+        $id = $_REQUEST['id'];
+        $grupo = $_REQUEST['grupo'];
+        $oficina = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ, $_REQUEST['oficina']);
+        $modulo_tramos = $_REQUEST['modulo_tramos'];
+        $precio_tramo1 = $_REQUEST['precio_tramo1'];
+        $precio_tramo2 = $_REQUEST['precio_tramo2'];
+        $precio_tramo3 = $_REQUEST['precio_tramo3'];
+        $precio_tramo4 = $_REQUEST['precio_tramo4'];
+        $km_max_diarios = $_REQUEST['km_max_diarios'];
+        $precio_km_extra = $_REQUEST['precio_km_extra'];
 
-        $vehiculo = new TransferVehiculo($id, $tipo, $grupo, $modelo, $puertas, $plazas, $radio, $aire, $metros_cubicos, $alto, $ancho, $largo);
-        FrontController::getInstance()->execute($entity, $operation, $vehiculo);
+        $tarifa = new TransferTarifa($id, $grupo, $oficina, $modulo_tramos, $precio_tramo1, $precio_tramo2, $precio_tramo3, $precio_tramo4, $km_max_diarios, $precio_km_extra);
+        FrontController::getInstance()->execute($entity, $operation, $tarifa);
 
         break;
     case Operations::DELETE:
@@ -60,4 +56,4 @@ switch ($operation) {
         break;
 }
 
-echo "<p><a href='operationsVehiculo.php'><button type='button' >VOLVER</button></a></p>";
+echo "<p><a href='operationsTarifa.php'><button type='button' >VOLVER</button></a></p>";

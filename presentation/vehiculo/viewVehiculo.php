@@ -10,9 +10,9 @@ switch ($operation) {
 
         echo "<form method='post' action='vehiculoExecutor.php?operation=$operation'>";
         //echo "<p>ID: <input type='text'  name='id' id='id_id' placeholder='Ej: 1 required></p>";
-        echo "<select name='tipo' id='id_tipo'>";
-        echo "<option value='industrial'>Industrial</option>";
-        echo "<option value='turismo'>Turismo</option>";
+        echo "<p>Tipo: <select name='tipo' id='id_tipo'>";
+        echo "<option value='industrial'>industrial</option>";
+        echo "<option value='turismo'>turismo</option>";
         echo "</select></p>";
         echo "<p>Grupo: <input type='text'  name='grupo' placeholder='A,B,1,2...' id='id_grupo'  required></p>";
         echo "<p>Modelo: <input type='text'  name='modelo' id='id_modelo' placeholder='Fiat Panda, Seat Leon...' required></p>";
@@ -82,7 +82,13 @@ switch ($operation) {
 
         echo "<form method='post' action='vehiculoExecutor.php?operation=$operation'>";
         echo "<p>ID: <input  readonly type='text'  name='id' id='id_id' value='$id'></p>";
-        echo "<p>Tipo: <input  type='text'  name='tipo' id='id_tipo' value='$tipo'></p>";
+
+        echo "<p>Tipo: <select name='tipo' id='id_tipo'>";
+        echo "<option value='$tipo'>$tipo</option>";
+        $t = ($tipo == "industrial") ? "turismo" : "industrial";
+        echo "<option value='$t'>$t</option>";
+        echo "</select></p>";
+
         echo "<p>Grupo: <input  type='text'  name='grupo' id='id_grupo' value='$grupo'></p>";
         echo "<p>Modelo: <input  type='text' name='modelo' id='id_modelo' value='$modelo'></p>";
         echo "<p>Puertas: <input  type='number'  name='puertas' id='id_puertas' value='$puertas'></p>";
