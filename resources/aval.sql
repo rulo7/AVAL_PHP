@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-06-2015 a las 01:38:52
--- Versión del servidor: 5.6.20
--- Versión de PHP: 5.5.15
+-- Servidor: localhost
+-- Tiempo de generación: 22-06-2015 a las 21:46:44
+-- Versión del servidor: 5.6.21
+-- Versión de PHP: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
   `hora_apertura` time NOT NULL,
   `hora_cierre` time NOT NULL,
   `operador` varchar(20) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `oficinas`
@@ -73,14 +73,15 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `extra_silla_elevador` tinyint(1) NOT NULL,
   `extra_portaesquis` tinyint(1) NOT NULL,
   `extra_cadenas` tinyint(1) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `reservas`
 --
 
 INSERT INTO `reservas` (`ID`, `tarifa`, `momento_recogida`, `momento_devolucion`, `oficina_devolucion`, `cargado_cuenta`, `estado`, `NIF`, `nombre`, `apellidos`, `email`, `telefono1`, `telefono2`, `nacionalidad`, `fecha_nacimiento`, `extra_gps`, `extra_silla_bebe`, `extra_silla_elevador`, `extra_portaesquis`, `extra_cadenas`) VALUES
-(3, 4, '2015-06-02 00:01:00', '2015-06-02 23:06:00', 2, 0.02, 'prueba', '12345678B', 'Cambio', 'Hernando Sanchez', 'raul.dinformatica@gmail.com', 123456789, 123456789, 'Cambiada', '2015-01-31', 1, 1, 0, 0, 0);
+(3, 3, '2015-06-02 00:01:00', '2015-06-02 23:06:00', 2, 11, 'prueba', '12345678B', 'Cambio', 'Hernando Sanchez', 'raul.dinformatica@gmail.com', 123456789, 123456789, 'Cambiada', '2015-01-31', 1, 1, 1, 0, 0),
+(4, 6, '2016-12-20 09:00:00', '2010-12-24 10:30:00', 2, 12.36, 'prueba', '05432212Q', 'Raul', 'Cobos Hernando', 'racbos@ucm.es', 913426512, 676543214, 'Francesa', '1992-12-11', 0, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -99,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `tarifas` (
   `precio_tramo4` float NOT NULL,
   `km_max_diarios` float NOT NULL,
   `precio_km_extra` float NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tarifas`
@@ -131,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `alto` float NOT NULL,
   `ancho` float NOT NULL,
   `largo` float NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `vehiculo`
@@ -181,7 +182,7 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tarifas`
 --
