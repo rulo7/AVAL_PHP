@@ -162,7 +162,7 @@ class DAOReserva {
      * @return int[]
      */
     public function toList() {
-        $query = "SELECT * FROM `reservas`";
+        $query = "SELECT * FROM `reservas` ORDER BY `momento_recogida` DESC";
         try {
             $datos = $this->connection->read($query);
             if (!$datos) {

@@ -19,10 +19,18 @@ switch ($operation) {
         $plazas = $_REQUEST["plazas"];
         $radio = (isset($_REQUEST["radio"])) ? $_REQUEST["radio"] : 0;
         $aire = (isset($_REQUEST["aire"])) ? $_REQUEST["aire"] : 0;
-        $metros_cubicos = $_REQUEST["metros_cubicos"];
-        $alto = $_REQUEST["alto"];
-        $ancho = $_REQUEST["alto"];
-        $largo = $_REQUEST["largo"];
+        
+        if ($tipo == "industrial") {
+            $metros_cubicos = $_REQUEST["metros_cubicos"];
+            $alto = $_REQUEST["alto"];
+            $ancho = $_REQUEST["alto"];
+            $largo = $_REQUEST["largo"];
+        } else {
+            $metros_cubicos = 0;
+            $alto = 0;
+            $ancho = 0;
+            $largo = 0;
+        }
 
         $vehiculo = new TransferVehiculo(0, $tipo, $grupo, $modelo, $puertas, $plazas, $radio, $aire, $metros_cubicos, $alto, $ancho, $largo);
         FrontController::getInstance()->execute($entity, $operation, $vehiculo);
@@ -41,10 +49,18 @@ switch ($operation) {
         $plazas = $_REQUEST["plazas"];
         $radio = (isset($_REQUEST["radio"])) ? $_REQUEST["radio"] : 0;
         $aire = (isset($_REQUEST["aire"])) ? $_REQUEST["aire"] : 0;
-        $metros_cubicos = $_REQUEST["metros_cubicos"];
-        $alto = $_REQUEST["alto"];
-        $ancho = $_REQUEST["alto"];
-        $largo = $_REQUEST["largo"];
+
+        if ($tipo == "industrial") {
+            $metros_cubicos = $_REQUEST["metros_cubicos"];
+            $alto = $_REQUEST["alto"];
+            $ancho = $_REQUEST["alto"];
+            $largo = $_REQUEST["largo"];
+        } else {
+            $metros_cubicos = 0;
+            $alto = 0;
+            $ancho = 0;
+            $largo = 0;
+        }
 
         $vehiculo = new TransferVehiculo($id, $tipo, $grupo, $modelo, $puertas, $plazas, $radio, $aire, $metros_cubicos, $alto, $ancho, $largo);
         FrontController::getInstance()->execute($entity, $operation, $vehiculo);
