@@ -6,12 +6,18 @@ require_once dirname(dirname(__DIR__)) . '/model/enums/Entities.php';
 require_once dirname(dirname(__DIR__)) . '/model/enums/Operations.php';
 
 
-//$id = $_REQUEST['id'];
+
 $tarifa = FrontController::getInstance()->execute(Entities::TARIFA, Operations::READ, $_REQUEST['tarifa']);
 $momento_recogida = $_REQUEST['momento_recogida_date'] . " " . $_REQUEST['momento_recogida_time'];
 $momento_devolucion = $_REQUEST['momento_devolucion_date'] . " " . $_REQUEST['momento_devolucion_time'];
+if(isset($_REQUEST['oficina_devolucion']))
+{
 $oficina_devolucion = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ, $_REQUEST['oficina_devolucion']);
-$cargado_cuenta = $_REQUEST['cargado_cuenta'];
+}
+else
+$oficina_devolucion = null;
+//$cargado_cuenta = $_REQUEST['cargado_cuenta'];
+$cargado_cuenta = 0;
 $estado = $_REQUEST['estado'];
 $NIF = $_REQUEST['NIF'];
 $nombre = $_REQUEST['nombre'];
@@ -36,3 +42,4 @@ FrontController::getInstance()->execute(Entities::RESERVA, Operations::CREATE, $
 
 
 echo "<p><a href='operationsReserva.php'><button type='button' >VOLVER</button></a></p>";
+
