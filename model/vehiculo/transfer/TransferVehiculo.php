@@ -134,20 +134,18 @@ class TransferVehiculo {
     public function __toString() {
 
         $string = '';
-        $string .= $this->id . "<br>";
-        $string .= $this->tipo . "<br>";
-        $string .= $this->grupo . "<br>";
-        $string .= $this->modelo . "<br>";
-        $string .= $this->puertas . "<br>";
-        $string .= $this->plazas . "<br>";
-        $string .= $this->radio . "<br>";
-        $string .= $this->aire . "<br>";
-        $string .= $this->metros_cubicos . "<br>";
-        $string .= $this->alto . "<br>";
-        $string .= $this->ancho . "<br>";
-        $string .= $this->largo . "<br>";
-
-        return $string;
+     // $string .= $this->id . "<br>";
+		$string .= "Grupo: " . $this->grupo . "<br>";
+        $string .= "Tipo: " .$this->tipo . "<br>";
+        $string .= "Modelo: " .$this->modelo . "<br>";
+        $string .= "Puertas: " .$this->puertas . "<br>";
+        $string .= "Plazas: " .$this->plazas . "<br>";
+        $string .= "Radio: " .$this->radio . "<br>";
+        $string .= "Aire: " .$this->aire . "<br>";
+        $string .= "Metros cubicos: " .$this->metros_cubicos . "<br>";
+        $string .= "Alto: " .$this->alto . "<br>";
+        $string .= "Ancho: " .$this->ancho . "<br>";
+        $string .="Largo: " . $this->largo . "<br>";
     }
 
 }
