@@ -5,14 +5,23 @@ require_once dirname(dirname(__DIR__)) . '/model/enums/Entities.php';
 require_once dirname(dirname(__DIR__)) . '/model/controller/FrontController.php';
 
 
+
+
+
+$industriales=hayIndustriales();
+
+if($industriales)
+{
 echo "<p>Eliga el tipo de vehiculo: </p>";
 echo "<button id='turismoButton'>Turismos</button>";
 echo "          ";
 echo "<button id='industrialesButton'>Industriales</button>";
+mostrarVehiculos('industrial');
+}
 
 mostrarVehiculos('turismo');
 
-mostrarVehiculos('industrial');
+
 
 
 
@@ -47,7 +56,8 @@ if (sizeof($idTarifas) > 0) {
 			$group=$vehiculo->getGrupo();
 			if ($tipo == $type && $group == $grupo )
 			{
-				echo "<option value='$idTarifa'>Vehiculos del grupo '$grupo' en '$oficina'</option>";
+				echo "<option value='$idTarifa'>Grupo $grupo</option>";
+				//echo "<option value='$idTarifa'>Vehiculos del grupo '$grupo' en '$oficina'</option>";
 			}
 		 
 		 }
@@ -87,6 +97,42 @@ echo "<p><input type='submit' value='Siguiente'></p>";
 echo "</form>";
 echo "</div>";
 }
+
+function hayIndustriales(){
+$id_oficina = $_REQUEST['oficina'];
+$industriales=false;
+$idTarifas = FrontController::getInstance()->execute(Entities::TARIFA, Operations::TOLIST, NULL);
+
+if (sizeof($idTarifas) > 0) {
+
+    foreach ($idTarifas as $idTarifa) {
+
+        $tarifa = FrontController::getInstance()->execute(Entities::TARIFA, Operations::READ, $idTarifa);
+		$oficina_id=$tarifa->getOficina()->getId();
+		if($oficina_id==$id_oficina)
+		{
+        $oficina = $tarifa->getOficina()->getLocalidad();
+        $grupo = $tarifa->getGrupo();
+		
+		$id_vehiculos = FrontController::getInstance()->execute(Entities::VEHICULO, Operations::TOLIST, NULL);
+		 foreach ($id_vehiculos as $id_vehiculo) {
+			
+			$vehiculo=FrontController::getInstance()->execute(Entities::VEHICULO, Operations::READ, $id_vehiculo);
+			$tipo = $vehiculo->getTipo();
+			$group=$vehiculo->getGrupo();
+			if ($tipo == 'industrial' && $group == $grupo )
+			{
+				$industriales=true;
+			}
+		 
+		 }
+		}
+    }
+  }
+return $industriales;  
+}
+	
+
 ?>
 
 <script type="text/javascript">
