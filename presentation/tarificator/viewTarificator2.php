@@ -108,4 +108,3 @@ document.getElementById('industrialesButton').addEventListener('click',function(
 
 
 </script>
-
