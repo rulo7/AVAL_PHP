@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2015 a las 21:50:17
+-- Tiempo de generación: 28-06-2015 a las 17:36:08
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `tarifa` int(11) NOT NULL,
   `momento_recogida` datetime NOT NULL,
   `momento_devolucion` datetime NOT NULL,
-  `oficina_devolucion` int(11) DEFAULT NULL,
+  `oficina_devolucion` int(11) NOT NULL,
   `cargado_cuenta` float NOT NULL,
   `estado` enum('prueba','','','') COLLATE utf8_spanish_ci NOT NULL,
   `NIF` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `extra_silla_elevador` tinyint(1) NOT NULL,
   `extra_portaesquis` tinyint(1) NOT NULL,
   `extra_cadenas` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `reservas`
@@ -82,7 +82,10 @@ CREATE TABLE IF NOT EXISTS `reservas` (
 INSERT INTO `reservas` (`ID`, `tarifa`, `momento_recogida`, `momento_devolucion`, `oficina_devolucion`, `cargado_cuenta`, `estado`, `NIF`, `nombre`, `apellidos`, `email`, `telefono1`, `telefono2`, `nacionalidad`, `fecha_nacimiento`, `extra_gps`, `extra_silla_bebe`, `extra_silla_elevador`, `extra_portaesquis`, `extra_cadenas`) VALUES
 (3, 3, '2015-06-02 00:01:00', '2015-06-02 23:06:00', 2, 11, 'prueba', '12345678B', 'Cambio', 'Hernando Sanchez', 'raul.dinformatica@gmail.com', 123456789, 123456789, 'Cambiada', '2015-01-31', 1, 1, 1, 0, 0),
 (4, 6, '2016-12-20 09:00:00', '2010-12-24 10:30:00', 2, 12.36, 'prueba', '05432212Q', 'Raul', 'Cobos Hernando', 'racbos@ucm.es', 913426512, 676543214, 'Francesa', '1992-12-11', 0, 1, 0, 1, 0),
-(7, 4, '0011-11-11 12:03:00', '1314-03-12 12:03:00', NULL, 0, 'prueba', '4234324324324', 'Daniel', 'Tocino Estrada', 'dtocino@gmail.com', 1312151543, 131231, 'peruana', '1342-02-13', 0, 1, 0, 0, 0);
+(8, 8, '2015-06-05 23:59:00', '2015-06-06 00:00:00', 2, 0, 'prueba', '4234324324324', 'Daniel', 'Tocino Estrada', 'dadsa@gsdg.com', 2147483647, 2147483647, 'de aqui', '1111-06-21', 1, 0, 0, 1, 0),
+(9, 8, '2015-06-05 23:59:00', '2015-06-06 00:00:00', 2, 0, 'prueba', '4234324324324', 'Daniel', 'Tocino Estrada', 'dadsa@gsdg.com', 2147483647, 2147483647, '', '1111-06-21', 1, 0, 0, 1, 0),
+(10, 8, '2015-06-05 23:59:00', '2015-06-06 00:00:00', 2, 0, 'prueba', '', 'Daniel', 'Tocino Estrada', 'dadsa@gsdg.com', 2147483647, 2147483647, '', '1111-06-21', 1, 0, 0, 1, 0),
+(11, 8, '2015-06-13 12:03:00', '2015-06-05 12:12:00', 2, 0, 'prueba', '42343243', 'Asdas', 'asdasd', 'asdasda@sadasd', 9013488, 1, 'dfasfa', '2015-06-19', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -134,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `alto` float NOT NULL,
   `ancho` float NOT NULL,
   `largo` float NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=687 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=689 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `vehiculo`
@@ -143,7 +146,9 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
 INSERT INTO `vehiculo` (`ID`, `tipo`, `grupo`, `modelo`, `puertas`, `plazas`, `radio`, `aire`, `metros_cubicos`, `alto`, `ancho`, `largo`) VALUES
 (2, 'industrial', '2', 'Renault Kangoo', 4, 5, 0, 1, 2.5, 3.6, 3.6, 6.2),
 (456, 'industrial', 'B', 'Renault Kangoo', 4, 5, 0, 1, 2.5, 3.6, 3.6, 6.2),
-(686, 'turismo', '3', 'Renault Kangoo', 4, 5, 0, 1, 2.5, 3.6, 3.6, 6.2);
+(686, 'turismo', '3', 'Renault Kangoo', 4, 5, 0, 1, 2.5, 3.6, 3.6, 6.2),
+(687, 'turismo', 'A', 'Renault Kangoo', 4, 5, 0, 1, 2.5, 3.6, 3.6, 6.2),
+(688, 'turismo', 'C', 'Renault Kangoo', 4, 5, 0, 1, 2.5, 3.6, 3.6, 6.2);
 
 --
 -- Índices para tablas volcadas
@@ -186,7 +191,7 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `tarifas`
 --
@@ -196,7 +201,7 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=687;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=689;
 --
 -- Restricciones para tablas volcadas
 --
@@ -205,8 +210,8 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=687;
 -- Filtros para la tabla `reservas`
 --
 ALTER TABLE `reservas`
-ADD CONSTRAINT `fk_reservas_oficinaDevolucion` FOREIGN KEY (`oficina_devolucion`) REFERENCES `oficinas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_reservas_tarifa` FOREIGN KEY (`tarifa`) REFERENCES `tarifas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `fk_reservas_tarifa` FOREIGN KEY (`tarifa`) REFERENCES `tarifas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`oficina_devolucion`) REFERENCES `oficinas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tarifas`
