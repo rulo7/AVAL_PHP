@@ -141,6 +141,7 @@ switch ($operation) {
         $extra_silla_elevadora = $transferReserva->getExtra_silla_elevador();
         $extra_portaesquis = $transferReserva->getExtra_portaesquis();
         $extra_cadenas = $transferReserva->getExtra_cadenas();
+        $pendiente = $transferReserva->getPendiente();
 
 
 
@@ -165,6 +166,7 @@ switch ($operation) {
         echo "<p>Con extra Silla Elevadora: " . (($extra_silla_elevadora) ? "SI" : "NO" ) . "</p>";
         echo "<p>Con extra Portaesquis: " . (($extra_portaesquis) ? "SI" : "NO" ) . "</p>";
         echo "<p>Con extra Cadenas: " . (($extra_cadenas) ? "SI" : "NO" ) . "</p>";
+        echo "<p>Pendiente de confirmacion: " . (($pendiente) ? "SI" : "NO" ) . "</p>";
 
 
         break;
@@ -202,6 +204,7 @@ switch ($operation) {
         $extra_silla_elevadora = $transferReserva->getExtra_silla_elevador();
         $extra_portaesquis = $transferReserva->getExtra_portaesquis();
         $extra_cadenas = $transferReserva->getExtra_cadenas();
+        $pendiente = $transferReserva->getPendiente();
 
 
         echo "<form method='post' action='reservaExecutor.php?operation=$operation'>";
@@ -284,6 +287,7 @@ switch ($operation) {
         echo "<p>Con extra Silla Elevadora: <input type='checkbox' name='extra_silla_elevador'" . (($extra_silla_elevadora) ? "checked" : "" ) . " /></p>";
         echo "<p>Con extra Portaesquis: <input type='checkbox' name='extra_portaesquis'" . (($extra_portaesquis) ? "checked" : "" ) . " /></p>";
         echo "<p>Con extra Cadenas: <input type='checkbox' name='extra_cadenas'" . (($extra_cadenas) ? "checked" : "" ) . " /></p>";
+        echo "<p>Pendiente de confirmacion: <input type='checkbox' name='pendiente'" . (($pendiente) ? "checked" : "" ) . " /></p>";
 
         echo "<p><input type='submit' value='Editar'></p>";
         echo "</form>";

@@ -48,14 +48,15 @@ class DAOReserva {
         $extra_silla_elevador = $transferReserva->getExtra_silla_elevador();
         $extra_portaesquis = $transferReserva->getExtra_portaesquis();
         $extra_cadenas = $transferReserva->getExtra_cadenas();
+        $pendiente = $transferReserva->getPendiente();
 
         $query = "INSERT INTO `reservas`"
                 . "(`id`, `tarifa`, `momento_recogida`, `momento_devolucion`, `oficina_devolucion`, `cargado_cuenta`, `estado`, `NIF`, `nombre`,"
                 . " `apellidos`,`email`, `telefono1`, `telefono2`, `nacionalidad`, `fecha_nacimiento`,`extra_gps`,`extra_silla_bebe`,`extra_silla_elevador`,"
-                . "`extra_portaesquis`,`extra_cadenas`) "
+                . "`extra_portaesquis`,`extra_cadenas`, `pendiente`) "
                 . "VALUES ($id, $tarifa, '$momento_recogida','$momento_devolucion', $oficina_devolucion, $cargado_cuenta,'$estado',"
                 . "'$NIF', '$nombre','$apellidos','$email',$telefono1,$telefono2,'$nacionalidad','$fecha_nacimiento',$extra_gps,"
-                . "$extra_silla_bebe,$extra_silla_elevador,$extra_portaesquis,$extra_cadenas)";
+                . "$extra_silla_bebe,$extra_silla_elevador,$extra_portaesquis,$extra_cadenas, $pendiente)";
 
         try {
             $this->connection->write($query);
@@ -99,11 +100,11 @@ class DAOReserva {
                 $extra_silla_elevador = $datos[0]["extra_silla_elevador"];
                 $extra_portaesquis = $datos[0]["extra_portaesquis"];
                 $extra_cadenas = $datos[0]["extra_cadenas"];
+                $pendiente = $datos[0]["pendiente"];
 
 
 
-
-                return new TransferReserva($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas);
+                return new TransferReserva($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas, $pendiente);
             }
         } catch (Exception $exception) {
             throw $exception;
@@ -143,13 +144,14 @@ class DAOReserva {
         $extra_silla_elevador = $transferReserva->getExtra_silla_elevador();
         $extra_portaesquis = $transferReserva->getExtra_portaesquis();
         $extra_cadenas = $transferReserva->getExtra_cadenas();
+        $pendiente = $transferReserva->getPendiente();
 
         $query = "UPDATE `reservas` SET "
                 . "`tarifa`=$tarifa,`momento_recogida`='$momento_recogida',`momento_devolucion`='$momento_devolucion',"
                 . "`oficina_devolucion`=$oficina_devolucion, `cargado_cuenta` = $cargado_cuenta, `email`='$email',`estado`= '$estado', `NIF`='$NIF',"
                 . "`nombre` = '$nombre', `apellidos` = '$apellidos', `telefono1`= '$telefono1', `telefono2`='$telefono2',`nacionalidad`='$nacionalidad',"
                 . "`fecha_nacimiento`='$fecha_nacimiento',`extra_gps`=$extra_gps,`extra_silla_bebe`=$extra_silla_bebe,`extra_silla_elevador`=$extra_silla_elevador,"
-                . "`extra_portaesquis`=$extra_portaesquis,`extra_cadenas`=$extra_cadenas"
+                . "`extra_portaesquis`=$extra_portaesquis,`extra_cadenas`=$extra_cadenas, `pendiente`='$pendiente'"
                 . " WHERE ID=$id";
         try {
             $this->connection->write($query);
@@ -179,7 +181,7 @@ class DAOReserva {
      * @return int[]
      */
     public function toList() {
-        $query = "SELECT * FROM `reservas` ORDER BY `momento_recogida` DESC";
+        $query = "SELECT * FROM `reservas` ORDER BY `ID` DESC";
         try {
             $datos = $this->connection->read($query);
             if (!$datos) {

@@ -31,8 +31,9 @@ switch ($operation) {
         $extra_silla_elevador = (isset($_REQUEST['extra_silla_elevador'])) ? 1 : 0;
         $extra_portaesquis = (isset($_REQUEST['extra_portaesquis'])) ? 1 : 0;
         $extra_cadenas = (isset($_REQUEST['extra_cadenas'])) ? 1 : 0;
+        $pendiente = true;
 
-        $reserva = new TransferReserva(0, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas);
+        $reserva = new TransferReserva(0, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas, $pendiente);
         FrontController::getInstance()->execute($entity, $operation, $reserva);
 
         break;
@@ -61,8 +62,9 @@ switch ($operation) {
         $extra_silla_elevador = (isset($_REQUEST['extra_silla_elevador'])) ? 1 : 0;
         $extra_portaesquis = (isset($_REQUEST['extra_portaesquis'])) ? 1 : 0;
         $extra_cadenas = (isset($_REQUEST['extra_cadenas'])) ? 1 : 0;
+        $pendiente = (isset($_REQUEST['pendiente'])) ? 1 : 0;;
 
-        $reserva = new TransferReserva($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas);
+        $reserva = new TransferReserva($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas, $pendiente);
         FrontController::getInstance()->execute($entity, $operation, $reserva);
 
         break;

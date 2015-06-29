@@ -1,5 +1,24 @@
-<?php
+<script>
 
+    window.onload = function () {
+        ocultar();
+    };
+
+    function ocultar() {
+
+        if (document.getElementById("id_modulo_tramos").selectedIndex > 0) {
+            document.getElementById("tramo4").style.display = "none";
+        } else {
+            document.getElementById("tramo4").style.display = "inline";
+        }
+    }
+    ;
+
+</script>
+
+
+
+<?php
 require_once dirname(dirname(__DIR__)) . '/model/enums/Operations.php';
 require_once dirname(dirname(__DIR__)) . '/model/enums/Entities.php';
 require_once dirname(dirname(__DIR__)) . '/model/controller/FrontController.php';
@@ -35,15 +54,16 @@ switch ($operation) {
         }
 
         echo "<p>Tramos: ";
-        echo "<select name='modulo_tramos' id='id_grupo'>";
-        echo "<option value='1'>1-3,4-7,8-12,13+</option>";
-        echo "<option value='2'>1-5,6-9,10-15,15+</option>";
+        echo "<select name='modulo_tramos' id='id_modulo_tramos' onchange='ocultar();'>";
+        echo "<option value='1'>1-3,4-6,7-14,15+</option>";
+        echo "<option value='2'>1-3,4-6,7+</option>";
+        echo "<option value='3'>1,2-4,5+</option>";
         echo "</select></p>";
 
         echo "<p>Precio tramo 1(eur): <input step='0.01' type='number'  name='precio_tramo1' id='id_precio_tramo1' placeholder='13.42'></p>";
         echo "<p>Precio tramo 2(eur): <input step='0.01' type='number'  name='precio_tramo2' id='id_precio_tramo2' placeholder='16.50'></p>";
         echo "<p>Precio tramo 3(eur): <input step='0.01' type='number'  name='precio_tramo3' id='id_precio_tramo3' placeholder='10'></p>";
-        echo "<p>Precio tramo 4(eur): <input step='0.01' type='number'  name='precio_tramo4' id='id_precio_tramo4' placeholder='18.5'></p>";
+        echo "<p id='tramo4'>Precio tramo 4(eur): <input step='0.01' type='number'  name='precio_tramo4' id='id_precio_tramo4' placeholder='18.5'></p>";
         echo "<p>Km maximos diarios: (Km): <input step='0.01' type='number'  name='km_max_diarios' id='id_km_max_diarios' placeholder='350.22'></p>";
         echo "<p>Precio Km extra: (eur): <input step='0.01' type='number'  name='precio_km_extra' id='id_precio_km_extra' placeholder='3.25'></p>";
         echo "<p><input type='submit' value='Crear'></p>";
@@ -72,17 +92,23 @@ switch ($operation) {
         echo "<p>Tramos: ";
         switch ($modulo_tramos) {
             case 1:
-                echo "1-3,4-7,8-12,13+";
+                echo "1-3,4-6,7-14,15+";
                 break;
             case 2:
-                echo "1-5,6-9,10-15,15+";
+                echo "1-3,4-6,7+";
+                break;
+            case 3:
+                echo "1,2-4,5+";
                 break;
         }
         echo "</p>";
         echo "<p>Precio tramo 1(eur): <input readonly step='0.01' type='number'  name='precio_tramo_1' id='id_precio_tramo_1' value='$precio_tramo1'></p>";
         echo "<p>Precio tramo 2(eur): <input readonly step='0.01' type='number'  name='precio_tramo_2' id='id_precio_tramo_2' value='$precio_tramo2'></p>";
         echo "<p>Precio tramo 3(eur): <input readonly step='0.01' type='number'  name='precio_tramo_3' id='id_precio_tramo_3' value='$precio_tramo3'></p>";
-        echo "<p>Precio tramo 4(eur): <input readonly step='0.01' type='number'  name='precio_tramo_4' id='id_precio_tramo_4' value='$precio_tramo4'></p>";
+
+        if ($modulo_tramos == 1) {
+            echo "<p>Precio tramo 4(eur): <input readonly step='0.01' type='number'  name='precio_tramo_4' id='id_precio_tramo_4' value='$precio_tramo4'></p>";
+        }
         echo "<p>Km maximos diarios: (Km): <input readonly step='0.01' type='number'  name='km_max_diarios' id='id_km_max_diarios' value='$km_max_diarios'></p>";
         echo "<p>Precio Km extra: (eur): <input readonly step='0.01' type='number'  name='precio_km_extra' id='id_precio_km_extra' value='$precio_km_extra'></p>";
 
@@ -150,7 +176,7 @@ switch ($operation) {
         echo "<p>Precio tramo 1(eur): <input  step='0.01' type='number'  name='precio_tramo1' id='id_precio_tramo1' value='$precio_tramo1'></p>";
         echo "<p>Precio tramo 2(eur): <input  step='0.01' type='number'  name='precio_tramo2' id='id_precio_tramo2' value='$precio_tramo2'></p>";
         echo "<p>Precio tramo 3(eur): <input  step='0.01' type='number'  name='precio_tramo3' id='id_precio_tramo3' value='$precio_tramo3'></p>";
-        echo "<p>Precio tramo 4(eur): <input  step='0.01' type='number'  name='precio_tramo4' id='id_precio_tramo4' value='$precio_tramo4'></p>";
+        echo "<p  id='tramo4'>Precio tramo 4(eur): <input  step='0.01' type='number'  name='precio_tramo4' id='id_precio_tramo4' value='$precio_tramo4'></p>";
         echo "<p>Km maximos diarios: (Km): <input  step='0.01' type='number'  name='km_max_diarios' id='id_km_max_diarios' value='$km_max_diarios'></p>";
         echo "<p>Precio Km extra: (eur): <input  step='0.01' type='number'  name='precio_km_extra' id='id_precio_km_extra' value='$precio_km_extra'></p>";
         echo "<p><input type='submit' value='Editar'></p>";

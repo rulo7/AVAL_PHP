@@ -24,8 +24,9 @@ class TransferReserva {
     private $extra_silla_elevador;
     private $extra_portaesquis;
     private $extra_cadenas;
+    private $pendiente;
 
-    function __construct($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas) {
+    function __construct($id, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas, $pendiente) {
         $this->id = $id;
         $this->tarifa = $tarifa;
         $this->momento_recogida = $momento_recogida;
@@ -46,6 +47,7 @@ class TransferReserva {
         $this->extra_silla_elevador = $extra_silla_elevador;
         $this->extra_portaesquis = $extra_portaesquis;
         $this->extra_cadenas = $extra_cadenas;
+        $this->pendiente = $pendiente;
     }
 
     function getId() {
@@ -139,6 +141,10 @@ class TransferReserva {
     function getExtra_cadenas() {
         return $this->extra_cadenas;
     }
+    
+    function getPendiente() {
+        return $this->pendiente;
+    }
 
     function setId($id) {
         $this->id = $id;
@@ -215,6 +221,10 @@ class TransferReserva {
     function setExtra_cadenas($extra_cadenas) {
         $this->extra_cadenas = $extra_cadenas;
     }
+    
+    function setPendiente($pendiente) {
+        $this->pendiente = $pendiente;
+    }
 
     /**
      * @return string string
@@ -239,6 +249,7 @@ class TransferReserva {
         $string .= $this->extra_silla_elevador . "<br>";
         $string .= $this->extra_portaesquis . "<br>";
         $string .= $this->extra_cadenas . "<br>";
+        $string .= $this->pendiente . "<br>";
 
 
         return $string;
