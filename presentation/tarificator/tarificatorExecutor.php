@@ -15,8 +15,7 @@ if(isset($_REQUEST['oficina_devolucion']))
 $oficina_devolucion = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ, $_REQUEST['oficina_devolucion']);
 }
 else
-$oficina_devolucion = null;
-//$cargado_cuenta = $_REQUEST['cargado_cuenta'];
+$oficina_devolucion = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ,$_REQUEST['oficina']);
 $cargado_cuenta = 0;
 $estado = $_REQUEST['estado'];
 $NIF = $_REQUEST['NIF'];
@@ -38,6 +37,11 @@ FrontController::getInstance()->execute(Entities::RESERVA, Operations::CREATE, $
 
 
 // RECOGER TARJETA DE CREDITO
+echo "<form method='post' action='enviarmail.php'>";
+echo "<p>Introduzca su tarjeta de credito:</p>";
+echo "<p><input type='text' name='tarjeta' required/></p>";
+echo "<p><input type='submit' value='Enviar'></p>";
+echo "</form>";
 // MANDAR EMAIL 
 
 
