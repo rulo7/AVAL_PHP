@@ -15,8 +15,7 @@ if(isset($_REQUEST['oficina_devolucion']))
 $oficina_devolucion = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ, $_REQUEST['oficina_devolucion']);
 }
 else
-$oficina_devolucion = null;
-//$cargado_cuenta = $_REQUEST['cargado_cuenta'];
+$oficina_devolucion = FrontController::getInstance()->execute(Entities::OFICINA, Operations::READ,$_REQUEST['oficina']);
 $cargado_cuenta = 0;
 $estado = $_REQUEST['estado'];
 $NIF = $_REQUEST['NIF'];
@@ -38,6 +37,18 @@ FrontController::getInstance()->execute(Entities::RESERVA, Operations::CREATE, $
 
 
 // RECOGER TARJETA DE CREDITO
+echo "<form method='post' action='enviarmail.php'>";
+echo "<p><select name='tipo_tarjeta'>";
+echo "<p><option value='MasterCard'>MasterCard</option>";
+echo "<p><option value='Visa'>Visa</option>";
+echo "<p><option value='American Express'>American Express</option>";
+echo "<p></select>";
+echo "<p>Introduzca su tarjeta numero de credito:</p>";
+echo "<p>Numero de la tarjeta:<input type='text' name='numero_tarjeta' required/></p>";
+echo "<p>CVV(<a href='http://tudineroefectivo.com/que-es-el-cvv-credit-card-code/'>¿que es?</a>):<input type='text' name='vcode_tarjeta' required/></p>";
+echo "<p>Caducidad:<input type='text' name='vcode_tarjeta' required/></p>";
+echo "<p><input type='submit' value='Enviar'></p>";
+echo "</form>";
 // MANDAR EMAIL 
 
 
