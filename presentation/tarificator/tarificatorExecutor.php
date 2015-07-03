@@ -32,7 +32,7 @@ $extra_silla_elevador = (isset($_REQUEST['extra_silla_elevador'])) ? 1 : 0;
 $extra_portaesquis = (isset($_REQUEST['extra_portaesquis'])) ? 1 : 0;
 $extra_cadenas = (isset($_REQUEST['extra_cadenas'])) ? 1 : 0;
 
-$reserva = new TransferReserva(0, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas);
+$reserva = new TransferReserva(0, $tarifa, $momento_recogida, $momento_devolucion, $oficina_devolucion, $cargado_cuenta, $estado, $NIF, $nombre, $apellidos, $email, $telefono1, $telefono2, $nacionalidad, $fecha_nacimiento, $extra_gps, $extra_silla_bebe, $extra_silla_elevador, $extra_portaesquis, $extra_cadenas, true);
 FrontController::getInstance()->execute(Entities::RESERVA, Operations::CREATE, $reserva);
 
 
@@ -43,9 +43,9 @@ echo "<p><option value='MasterCard'>MasterCard</option>";
 echo "<p><option value='Visa'>Visa</option>";
 echo "<p><option value='American Express'>American Express</option>";
 echo "<p></select>";
-echo "<p>Introduzca su tarjeta numero de credito:</p>";
+echo "<p>Introduzca los datos de su tarjeta:</p>";
 echo "<p>Numero de la tarjeta:<input type='text' name='numero_tarjeta' required/></p>";
-echo "<p>CVV(<a href='http://tudineroefectivo.com/que-es-el-cvv-credit-card-code/'>¿que es?</a>):<input type='text' name='vcode_tarjeta' required/></p>";
+echo "<p>CVV(<a target='_blank' href='http://tudineroefectivo.com/que-es-el-cvv-credit-card-code/'>¿que es?</a>):<input type='text' name='vcode_tarjeta' required/></p>";
 echo "<p>Caducidad:<input type='text' name='vcode_tarjeta' required/></p>";
 echo "<p><input type='submit' value='Enviar'></p>";
 echo "</form>";
